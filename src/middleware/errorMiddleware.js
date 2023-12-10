@@ -7,13 +7,13 @@ const errorMiddleware = (err, req, res, next) => {
 
   if (err instanceof ResponseError) {
     res.status(err.status).json({
-      status: 'Error',
+      status: 'Bad Request',
       message: err.message,
     }).end();
   } else {
     res.status(500).json({
       status: 'Error',
-      message: 'Internal server error',
+      message: err.message,
     }).end();
   }
 };
