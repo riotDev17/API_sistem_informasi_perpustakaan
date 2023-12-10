@@ -17,7 +17,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(auth);
-// app.use(router)
+app.use(router)
 app.use(errorMiddleware);
 
 

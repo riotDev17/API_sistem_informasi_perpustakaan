@@ -197,7 +197,7 @@ const loginAdminService = async (request) => {
  *            updatedAt:
  *              type: string
  *              description: updated at
- *    Unauthorized:
+ *    UnauthorizedGetAdmin:
  *      type: object
  *      properties:
  *        status:
@@ -232,8 +232,49 @@ const getAdminService = async (username) => {
   return admin;
 };
 
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    LogoutAdminSuccess:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *    UnauthorizedLogoutAdmin:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Message Unauthorized
+ * */
+const logoutAdminService = async (username) => {
+  username = validation(getAdminValidation, username);
+  const admin = await prismaClient.admin.findFirst({
+    where: {
+      username: username,
+    },
+  });
+
+  if (!admin) {
+    throw new ResponseError(404, 'Admin tidak ditemukan');
+  }
+};
+
 export default {
   registerAdminService,
   loginAdminService,
   getAdminService,
+  logoutAdminService,
 };

@@ -42,8 +42,23 @@ const getAdminController = async (req, res, next) => {
   }
 };
 
+const logoutAdminController = async (req, res, next) => {
+  try {
+    const username = req.admin.username;
+    await adminService.logoutAdminService(username);
+    res.clearCookie('token');
+    res.status(200).json({
+      status: 'success',
+      message: 'Berhasil logout',
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 export default {
   registerAdminController,
   loginAdminController,
   getAdminController,
+  logoutAdminController,
 };
