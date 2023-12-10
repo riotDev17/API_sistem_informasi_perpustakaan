@@ -14,7 +14,7 @@ model Admin {
   id_admin   String   @id @default(uuid())
   username   String   @db.VarChar(50)
   password   String   @db.VarChar(100)
-  foto_admin String   @db.Text
+  foto_admin String?  @db.Text
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 
@@ -55,7 +55,7 @@ model Siswa {
   alamat        String       @db.Text
   id_kelas      String
   kelas         Kelas        @relation(fields: [id_kelas], references: [id_kelas])
-  foto_siswa    String       @db.Text
+  foto_siswa    String?      @db.Text
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   Peminjaman    Peminjaman[]
@@ -82,7 +82,7 @@ model Buku {
   tahun_terbit Int          @db.Integer
   deskripsi    String       @db.Text
   stok_buku    Int          @db.Integer
-  foto_buku    String       @db.Text
+  foto_buku    String?      @db.Text
   id_rak_buku  String
   rak_buku     RakBuku      @relation(fields: [id_rak_buku], references: [id_rak_buku])
   createdAt    DateTime     @default(now())

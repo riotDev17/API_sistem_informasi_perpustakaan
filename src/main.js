@@ -5,6 +5,6 @@ import { logger } from './app/logger.js';
 const PORT = 3000;
 
 app.listen(PORT, () => {
-  logger.info(`Server is running on port ${PORT}`);
+  logger.info(`Server is running on port  http://localhost:${PORT}`);
   // swaggerDocs(web , PORT);
 });
