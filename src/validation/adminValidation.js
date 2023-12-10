@@ -10,7 +10,10 @@ const loginAdminValidation = Joi.object({
   password: Joi.string().min(8).max(100).required(),
 });
 
+const getAdminValidation = Joi.string().max(100).required();
+
 export {
   registerAdminValidation,
   loginAdminValidation,
+  getAdminValidation,
 };

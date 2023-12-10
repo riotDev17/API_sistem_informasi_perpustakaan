@@ -28,7 +28,22 @@ const loginAdminController = async (req, res, next) => {
   }
 };
 
+const getAdminController = async (req, res, next) => {
+  try {
+    const username = req.admin.username;
+    const result = await adminService.getAdminService(username);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Admin',
+      data: result,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
 export default {
   registerAdminController,
   loginAdminController,
+  getAdminController,
 };

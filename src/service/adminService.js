@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt';
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { loginAdminValidation, registerAdminValidation } from '../validation/adminValidation.js';
+import { getAdminValidation, loginAdminValidation, registerAdminValidation } from '../validation/adminValidation.js';
 
 /**
  * @openapi
@@ -133,7 +133,6 @@ const registerAdminService = async (request) => {
  *          default: Message Bad Request
  *          description: Message
  * */
-
 const loginAdminService = async (request) => {
   const admin = await validation(loginAdminValidation, request);
   const adminData = await prismaClient.admin.findFirst({
@@ -164,7 +163,77 @@ const loginAdminService = async (request) => {
   }
 };
 
+
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    GetAdminSuccess:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: object
+ *          properties:
+ *            id_admin:
+ *              type: string
+ *              description: id admin
+ *            username:
+ *              type: string
+ *              description: username admin
+ *            foto_admin:
+ *              type: string
+ *              description: foto admin
+ *            createdAt:
+ *              type: string
+ *              description: created at
+ *            updatedAt:
+ *              type: string
+ *              description: updated at
+ *    Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Message Unauthorized
+ *
+ * */
+const getAdminService = async (username) => {
+  username = validation(getAdminValidation, username);
+  const admin = await prismaClient.admin.findFirst({
+    where: {
+      username: username,
+    },
+    select: {
+      id_admin: true,
+      username: true,
+      foto_admin: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!admin) {
+    throw new ResponseError(404, 'Admin tidak ditemukan');
+  }
+
+  return admin;
+};
+
 export default {
   registerAdminService,
   loginAdminService,
+  getAdminService,
 };
