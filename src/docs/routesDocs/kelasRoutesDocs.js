@@ -138,6 +138,62 @@
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Get Kelas By ID Not Found'
+ * */
+
+
+// ====== UPDATE KELAS =======
+/**
+ * @openapi
+ * /api/kelas/{kelasId}:
+ *  put:
+ *    tags:
+ *      - Kelas
+ *    summary: Update Kelas
+ *    description: Update Kelas
+ *    parameters:
+ *      - name: kelasId
+ *        in: path
+ *        required: true
+ *        description: id agama
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            $ref: '#/components/schemas/Update Kelas'
+ *    responses:
+ *      200:
+ *        description: Update Kelas Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Kelas Success'
+ *      400:
+ *        description: Bad Request
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Kelas Bad Request'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Kelas Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Kelas Not Found'
+ *      409:
+ *        description: Conflict
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Kelas Conflict'
  *
  *
  * */

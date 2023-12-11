@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createKelasValidation, getKelasValidation } from '../validation/kelasValidation.js';
+import { createKelasValidation, getKelasValidation, updateKelasValidation } from '../validation/kelasValidation.js';
 
 const getKelasService = async () => {
   return prismaClient.kelas.findMany({
@@ -85,4 +85,44 @@ const getKelasByIdService = async (kelasId) => {
   return kelas;
 };
 
-export default { getKelasService, searchKelasService, createKelasService, getKelasByIdService };
+const updateKelasService = async (request) => {
+  const kelas = await validation(updateKelasValidation, request);
+  const kelasExist = await prismaClient.kelas.count({
+    where: {
+      id_kelas: kelas.id_kelas,
+    },
+  });
+
+  const nameKelasExist = await prismaClient.kelas.count({
+    where: {
+      nama_kelas: kelas.nama_kelas,
+    },
+  });
+
+  if (kelasExist !== 1) {
+    throw new ResponseError(404, 'Kelas tidak ditemukan');
+  } else if (nameKelasExist === 1) {
+    throw new ResponseError(409, 'Kelas sudah ada');
+  }
+
+  return prismaClient.kelas.update({
+    where: {
+      id_kelas: kelas.id_kelas,
+    },
+    data: kelas,
+    select: {
+      id_kelas: true,
+      nama_kelas: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
+export default {
+  getKelasService,
+  searchKelasService,
+  createKelasService,
+  getKelasByIdService,
+  updateKelasService,
+};

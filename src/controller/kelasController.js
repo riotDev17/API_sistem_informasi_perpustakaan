@@ -56,4 +56,26 @@ const getKelasByIdController = async (req, res, next) => {
   }
 };
 
-export default { getKelasController, searchKelasController, createKelasController, getKelasByIdController };
+const updateKelasController = async (req, res, next) => {
+  try {
+    const { kelasId } = req.params;
+    const request = req.body;
+    request.id_kelas = kelasId;
+    const result = await kelasService.updateKelasService(request);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mengubah Data Kelas',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default {
+  getKelasController,
+  searchKelasController,
+  createKelasController,
+  getKelasByIdController,
+  updateKelasController,
+};
