@@ -71,6 +71,95 @@ const getAgamaService = async () => {
  * @openapi
  * components:
  *  schemas:
+ *    SearchAgama:
+ *      type: object
+ *      required:
+ *        - nama_agama
+ *      properties:
+ *        nama_agama:
+ *          type: string
+ *          description: nama agama
+ *    SearchAgamaSuccess:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: array
+ *          items:
+ *            type: object
+ *            properties:
+ *              id_agama:
+ *                type: string
+ *                description: id agama
+ *              nama_agama:
+ *                type: string
+ *                description: nama agama
+ *              createdAt:
+ *                type: string
+ *                description: created at
+ *              updatedAt:
+ *                type: string
+ *                description: updated at
+ *    SearchAgamaUnauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: message
+ *    SearchAgamaNotFound:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Status
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: message
+ *
+ *
+ *
+ * */
+const searchAgamaService = async (request) => {
+  const { nama_agama } = request;
+  const agama = await prismaClient.agama.findMany({
+    where: {
+      nama_agama: {
+        contains: nama_agama,
+      },
+    },
+    select: {
+      id_agama: true,
+      nama_agama: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (agama.length === 0) {
+    throw new ResponseError(404, 'Agama Tidak Ditemukan');
+  }
+
+  return agama;
+};
+
+/**
+ * @openapi
+ * components:
+ *  schemas:
  *    AddAgama:
  *      type: object
  *      required:
@@ -397,6 +486,7 @@ const deleteAgamaService = async (agamaId) => {
 export default {
   getAgamaService,
   getAgamaByIdService,
+  searchAgamaService,
   createAgamaService,
   updateAgamaService,
   deleteAgamaService,

@@ -13,6 +13,20 @@ const getAgamaController = async (req, res, next) => {
   }
 };
 
+const searchAgamaController = async (req, res, next) => {
+  try {
+    const request = req.query;
+    const result = await agamaService.searchAgamaService(request);
+    res.status(200).json({
+      status: 'Success',
+      message: `Berhasil Mendapatkan Data Agama ${request.nama_agama}`,
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createAgamaController = async (req, res, next) => {
   try {
     const request = req.body;
@@ -73,6 +87,7 @@ const deleteAgamaController = async (req, res, next) => {
 
 export default {
   getAgamaController,
+  searchAgamaController,
   getAgamaByIdController,
   createAgamaController,
   updateAgamaController,

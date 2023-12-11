@@ -87,6 +87,44 @@ router.get('/api/agama', agamaController.getAgamaController);
 
 /**
  * @openapi
+ * /api/agama/search:
+ *  get:
+ *    tags:
+ *      - Agama
+ *    summary: Search Agama
+ *    description: Search Agama
+ *    parameters:
+ *      - name: nama_agama
+ *        in: query
+ *        required: true
+ *        description: search agama
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Search Agama Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/SearchAgamaSuccess'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/SearchAgamaUnauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/SearchAgamaNotFound'
+ *
+ * */
+router.get('/api/agama/search', agamaController.searchAgamaController);
+
+/**
+ * @openapi
  * /api/agama:
  *  post:
  *    tags:
