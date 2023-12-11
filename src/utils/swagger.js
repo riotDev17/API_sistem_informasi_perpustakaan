@@ -10,7 +10,7 @@ const options = {
     },
     components: {
       securitySchemes: {
-        bearerAuth: {
+        barrerAuth: {
           type: 'http',
           scheme: 'bearer',
           bearerFormat: 'JWT',
@@ -20,6 +20,11 @@ const options = {
     servers: [
       {
         url: 'http://localhost:3000',
+      },
+    ],
+    security: [
+      {
+        barrerAuth: [],
       },
     ],
   },
