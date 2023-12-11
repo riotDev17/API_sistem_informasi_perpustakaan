@@ -42,11 +42,27 @@ const getAdminController = async (req, res, next) => {
   }
 };
 
+const updateAdminController = async (req, res, next) => {
+  try {
+    const { adminId } = req.params;
+    const request = req.body;
+    request.id_admin = adminId;
+    const result = await adminService.updateAdminService(request);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Update Data Admin',
+      data: result,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+
 const logoutAdminController = async (req, res, next) => {
   try {
     const username = req.admin.username;
     await adminService.logoutAdminService(username);
-    res.clearCookie('token');
     res.status(200).json({
       status: 'success',
       message: 'Berhasil logout',
@@ -61,4 +77,5 @@ export default {
   loginAdminController,
   getAdminController,
   logoutAdminController,
+  updateAdminController,
 };

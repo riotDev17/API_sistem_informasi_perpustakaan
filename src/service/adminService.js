@@ -3,7 +3,14 @@ import bcrypt from 'bcrypt';
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { getAdminValidation, loginAdminValidation, registerAdminValidation } from '../validation/adminValidation.js';
+import {
+  getAdminValidation,
+  loginAdminValidation,
+  logoutAdminValidation,
+  registerAdminValidation,
+  updateAdminValidation,
+} from '../validation/adminValidation.js';
+import uploadFile from '../utils/multer.js';
 
 /**
  * @openapi
@@ -87,7 +94,6 @@ const registerAdminService = async (request) => {
   });
 };
 
-
 /**
  * @openapi
  * components:
@@ -163,7 +169,6 @@ const loginAdminService = async (request) => {
   }
 };
 
-
 /**
  * @openapi
  * components:
@@ -232,6 +237,52 @@ const getAdminService = async (username) => {
   return admin;
 };
 
+const updateAdminService = async (request) => {
+  const admin = await validation(updateAdminValidation, request);
+  const adminData = await prismaClient.admin.findUnique({
+    where: {
+      id_admin: admin.id_admin,
+    },
+  });
+
+  if (!adminData) {
+    throw new ResponseError(404, 'Admin tidak ditemukan');
+  }
+
+  const data = {};
+  if (admin.username) {
+    data.username = admin.username;
+  }
+
+  if (admin.password) {
+    data.password = await bcrypt.hash(admin.password, 10);
+  }
+
+  if (admin.foto_admin) {
+    data.foto_admin = await uploadFile.single('foto_admin')(admin.foto_admin)
+      .then(() => {
+        return request.file.path;
+      })
+      .catch((err) => {
+        throw new ResponseError(400, err.message);
+      });
+  }
+
+  return prismaClient.admin.update({
+    where: {
+      id_admin: admin.id_admin,
+    },
+    data: data,
+    select: {
+      id_admin: true,
+      username: true,
+      foto_admin: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
 /**
  * @openapi
  * components:
@@ -260,7 +311,7 @@ const getAdminService = async (username) => {
  *          description: Message Unauthorized
  * */
 const logoutAdminService = async (username) => {
-  username = validation(getAdminValidation, username);
+  username = validation(logoutAdminValidation, username);
   const admin = await prismaClient.admin.findFirst({
     where: {
       username: username,
@@ -277,4 +328,5 @@ export default {
   loginAdminService,
   getAdminService,
   logoutAdminService,
+  updateAdminService,
 };

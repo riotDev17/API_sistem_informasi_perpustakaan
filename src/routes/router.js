@@ -29,6 +29,7 @@ router.use(authMiddleware);
  *
  * */
 router.get('/api/admin', adminController.getAdminController);
+router.put('/api/admin/:adminId', adminController.updateAdminController);
 
 
 /**
