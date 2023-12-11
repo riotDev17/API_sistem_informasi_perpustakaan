@@ -1,3 +1,29 @@
+// ====== GET KELAS =======
+/**
+ * @openapi
+ * /api/kelas:
+ *  get:
+ *    tags:
+ *      - Kelas
+ *    summary: Get Kelas
+ *    description: Get Kelas
+ *    responses:
+ *      200:
+ *        description: Get Kelas Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Kelas Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Kelas Unauthorized'
+ *
+ * */
+
+
 // ====== ADD KELAS =======
 /**
  * @openapi

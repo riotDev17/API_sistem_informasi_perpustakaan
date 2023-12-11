@@ -1,3 +1,50 @@
+// ======= GET KELAS =======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Get Kelas Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: array
+ *          items:
+ *            type: object
+ *            properties:
+ *              id_kelas:
+ *                type: string
+ *                description: id kelas
+ *              nama_kelas:
+ *                type: string
+ *                description: nama kelas
+ *              createdAt:
+ *                type: string
+ *                description: create date kelas
+ *              updatedAt:
+ *                type: string
+ *                description: update date kelas
+ *    Get Kelas Unauthorized:
+ *        type: object
+ *        properties:
+ *          status:
+ *            type: string
+ *            default: Unauthorized
+ *            description: Unauthorized
+ *          message:
+ *            type: string
+ *            default: Message Unauthorized
+ *            description: message
+ * */
+
+
 // ======= ADD KELAS =======
 /**
  * @openapi
