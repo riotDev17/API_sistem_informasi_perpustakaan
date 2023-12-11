@@ -194,6 +194,41 @@
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Update Kelas Conflict'
- *
- *
+ * */
+
+// ====== DELETE KELAS =======
+/**
+ * @openapi
+ * /api/kelas/{kelasId}:
+ *  delete:
+ *    tags:
+ *      - Kelas
+ *    summary: Delete Kelas
+ *    description: Delete Kelas
+ *    parameters:
+ *      - name: kelasId
+ *        in: path
+ *        required: true
+ *        description: id kelas
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Delete Kelas Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Kelas Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Kelas Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Kelas Not Found'
  * */

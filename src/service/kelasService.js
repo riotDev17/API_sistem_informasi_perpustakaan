@@ -119,10 +119,31 @@ const updateKelasService = async (request) => {
   });
 };
 
+const deleteKelasService = async (kelasId) => {
+  kelasId = await validation(getKelasValidation, kelasId);
+  const kelasExist = await prismaClient.kelas.count({
+    where: {
+      id_kelas: kelasId,
+    },
+  });
+
+  if (kelasExist !== 1) {
+    throw new ResponseError(404, 'Kelas tidak ditemukan');
+  }
+
+  return prismaClient.kelas.delete({
+    where: {
+      id_kelas: kelasId,
+    },
+  });
+
+};
+
 export default {
   getKelasService,
   searchKelasService,
   createKelasService,
   getKelasByIdService,
   updateKelasService,
+  deleteKelasService,
 };

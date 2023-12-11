@@ -324,6 +324,44 @@
  *          type: string
  *          default: Message Conflict
  *          description: Conflict
- *
- *
+ * */
+
+// ======= DELETE KELAS =======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Delete Kelas Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *    Delete Kelas Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Unauthorized
+ *    Delete Kelas Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Not Found
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: Message Not Found
  * */

@@ -72,10 +72,24 @@ const updateKelasController = async (req, res, next) => {
   }
 };
 
+const deleteKelasController = async (req, res, next) => {
+  try {
+    const { kelasId } = req.params;
+    await kelasService.deleteKelasService(kelasId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Menghapus Data Kelas',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getKelasController,
   searchKelasController,
   createKelasController,
   getKelasByIdController,
   updateKelasController,
+  deleteKelasController,
 };

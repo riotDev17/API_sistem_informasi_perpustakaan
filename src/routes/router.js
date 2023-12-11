@@ -26,5 +26,6 @@ router.get('/api/kelas/search', kelasController.searchKelasController);
 router.post('/api/kelas', kelasController.createKelasController);
 router.get('/api/kelas/:kelasId', kelasController.getKelasByIdController);
 router.put('/api/kelas/:kelasId', kelasController.updateKelasController);
+router.delete('/api/kelas/:kelasId', kelasController.deleteKelasController);
 
 export { router };
