@@ -52,6 +52,12 @@
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Search Kelas Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Kelas Not Found'
  *
  * */
 
