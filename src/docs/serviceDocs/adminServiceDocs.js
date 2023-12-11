@@ -152,7 +152,7 @@
  *            updatedAt:
  *              type: string
  *              description: updated at
- *    Unauthorized Get Admin:
+ *    Get Admin Unauthorized:
  *      type: object
  *      properties:
  *        status:
@@ -182,7 +182,7 @@
  *          type: string
  *          default: Message Success
  *          description: message
- *    Unauthorized Logout Admin:
+ *    Logout Admin Unauthorized:
  *      type: object
  *      properties:
  *        status:

@@ -8,51 +8,6 @@ import {
   updateAgamaValidation,
 } from '../validation/agamaValidation.js';
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    GetAgamaSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: array
- *          items:
- *            type: object
- *            properties:
- *              id_agama:
- *                type: string
- *                description: id agama
- *              nama_agama:
- *                type: string
- *                description: nama agama
- *              createdAt:
- *                type: string
- *                description: created at
- *              updatedAt:
- *                type: string
- *                description: updated at
- *    GetAgamaUnauthorized:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: message
- *
- * */
 const getAgamaService = async () => {
   return prismaClient.agama.findMany({
     select: {
@@ -67,72 +22,6 @@ const getAgamaService = async () => {
   });
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    SearchAgama:
- *      type: object
- *      required:
- *        - nama_agama
- *      properties:
- *        nama_agama:
- *          type: string
- *          description: nama agama
- *    SearchAgamaSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: array
- *          items:
- *            type: object
- *            properties:
- *              id_agama:
- *                type: string
- *                description: id agama
- *              nama_agama:
- *                type: string
- *                description: nama agama
- *              createdAt:
- *                type: string
- *                description: created at
- *              updatedAt:
- *                type: string
- *                description: updated at
- *    SearchAgamaUnauthorized:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: message
- *    SearchAgamaNotFound:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Not Found
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Not Found
- *          description: message
- *
- *
- *
- * */
 const searchAgamaService = async (request) => {
   const { nama_agama } = request;
   const agama = await prismaClient.agama.findMany({
@@ -156,70 +45,6 @@ const searchAgamaService = async (request) => {
   return agama;
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    AddAgama:
- *      type: object
- *      required:
- *        - nama_agama
- *      properties:
- *        nama_agama:
- *          type: string
- *          description: nama agama
- *    AddAgamaSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: object
- *          properties:
- *            id_agama:
- *              type: string
- *              description: id agama
- *            nama_agama:
- *              type: string
- *              description: nama agama
- *            createdAt:
- *              type: string
- *              description: created at
- *            updatedAt:
- *              type: string
- *              description: updated at
- *    AddAgamaUnauthorized:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: message
- *    AddAgamaBadRequest:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Error
- *          description: Failed
- *        message:
- *          type: string
- *          default: Message Bad Request
- *          description: message
- *
- *
- *
- * */
 const createAgamaService = async (request) => {
   const agama = await validation(createAgamaValidation, request);
   const agamaExist = await prismaClient.agama.count({
@@ -229,7 +54,7 @@ const createAgamaService = async (request) => {
   });
 
   if (agamaExist === 1) {
-    throw new ResponseError(400, 'Nama Agama Sudah Ada');
+    throw new ResponseError(409, 'Nama Agama Sudah Ada');
   }
 
   return prismaClient.agama.create({
@@ -243,60 +68,7 @@ const createAgamaService = async (request) => {
   });
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    GetAgamaByIdSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: object
- *          properties:
- *            id_agama:
- *              type: string
- *              description: id agama
- *            nama_agama:
- *              type: string
- *              description: nama agama
- *            createdAt:
- *              type: string
- *              description: created at
- *            updatedAt:
- *              type: string
- *              description: updated at
- *    GetAgamaByIdUnauthorized:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: message
- *    GetAgamaByIdNotFound:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Not Found
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Not Found
- *          description: message
- *
- * */
+
 const getAgamaByIdService = async (agamaId) => {
   agamaId = await validation(getAgamaValidation, agamaId);
   const agama = await prismaClient.agama.findFirst({
@@ -318,78 +90,7 @@ const getAgamaByIdService = async (agamaId) => {
   return agama;
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    UpdateAgama:
- *      type: object
- *      required:
- *        - nama_agama
- *      properties:
- *        nama_agama:
- *          type: string
- *          description: nama agama
- *    UpdateAgamaSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: object
- *          properties:
- *            id_agama:
- *              type: string
- *              description: id agama
- *            nama_agama:
- *              type: string
- *              description: nama agama
- *            createdAt:
- *              type: string
- *              description: created at
- *            updatedAt:
- *              type: string
- *              description: updated at
- *    UpdateAgamaUnauthorized:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: message
- *    UpdateAgamaBadRequest:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Bad Request
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Bad Request
- *          description: message
- *    UpdateAgamaNotFound:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Not Found
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Not Found
- *          description: message
- * */
+
 const updateAgamaService = async (request) => {
   const agama = await validation(updateAgamaValidation, request);
   const agamaExist = await prismaClient.agama.count({
@@ -407,7 +108,7 @@ const updateAgamaService = async (request) => {
   if (agamaExist !== 1) {
     throw new ResponseError(404, 'Agama Tidak Ditemukan');
   } else if (nameAgamaExist === 1) {
-    throw new ResponseError(400, 'Nama Agama Sudah Ada');
+    throw new ResponseError(409, 'Nama Agama Sudah Ada');
   }
 
   return prismaClient.agama.update({
@@ -424,46 +125,7 @@ const updateAgamaService = async (request) => {
   });
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    DeleteAgamaSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *    DeleteAgamaUnauthorized:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: message
- *    DeleteAgamaNotFound:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Not Found
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Not Found
- *          description: message
- *
- *
- * */
+
 const deleteAgamaService = async (agamaId) => {
   agamaId = await validation(deleteAgamaValidation, agamaId);
   const agamaExist = await prismaClient.agama.count({

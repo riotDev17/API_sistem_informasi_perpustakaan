@@ -85,7 +85,7 @@
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Unauthorized Get Admin'
+ *              $ref: '#/components/schemas/Get Admin Unauthorized'
  *
  * */
 
@@ -110,6 +110,6 @@
  *        content:
  *          application/json:
  *            schema:
- *              $ref: '#/components/schemas/Unauthorized Logout Admin'
+ *              $ref: '#/components/schemas/Logout Admin Unauthorized'
  *
  * */
