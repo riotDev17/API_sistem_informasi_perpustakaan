@@ -183,3 +183,61 @@
  *          default: Message Conflict
  *          description: Conflict
  * */
+
+
+// ======= GET KELAS BY ID =======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Get Kelas By ID Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: object
+ *          properties:
+ *            id_kelas:
+ *              type: string
+ *              description: id kelas
+ *            nama_kelas:
+ *              type: string
+ *              description: nama kelas
+ *            createdAt:
+ *              type: string
+ *              description: create date kelas
+ *            updatedAt:
+ *              type: string
+ *              description: update date kelas
+ *    Get Kelas By ID Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Unauthorized
+ *    Get Kelas By ID Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Not Found
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: Message Not Found
+ *
+ *
+ * */

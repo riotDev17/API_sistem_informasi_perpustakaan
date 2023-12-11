@@ -24,5 +24,6 @@ router.delete('/api/agama/:agamaId', agamaController.deleteAgamaController);
 router.get('/api/kelas', kelasController.getKelasController);
 router.get('/api/kelas/search', kelasController.searchKelasController);
 router.post('/api/kelas', kelasController.createKelasController);
+router.get('/api/kelas/:kelasId', kelasController.getKelasByIdController);
 
 export { router };

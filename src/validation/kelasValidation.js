@@ -7,5 +7,6 @@ const createKelasValidation = Joi.object({
 });
 
 export {
+  getKelasValidation,
   createKelasValidation,
 };

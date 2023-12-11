@@ -101,3 +101,43 @@
  *            schema:
  *              $ref: '#/components/schemas/Add Kelas Conflict'
  * */
+
+
+// ====== GET KELAS BY ID =======
+/**
+ * @openapi
+ * /api/kelas/{kelasId}:
+ *  get:
+ *    tags:
+ *      - Kelas
+ *    summary: Get Kelas By ID
+ *    description: Get Kelas By ID
+ *    parameters:
+ *      - name: kelasId
+ *        in: path
+ *        required: true
+ *        description: id kelas
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Get Kelas By ID Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Kelas By ID Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Kelas By ID Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Kelas By ID Not Found'
+ *
+ *
+ * */

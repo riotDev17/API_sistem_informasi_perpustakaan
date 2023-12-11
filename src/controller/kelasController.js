@@ -42,4 +42,18 @@ const createKelasController = async (req, res, next) => {
   }
 };
 
-export default { getKelasController, searchKelasController, createKelasController };
+const getKelasByIdController = async (req, res, next) => {
+  try {
+    const { kelasId } = req.params;
+    const result = await kelasService.getKelasByIdService(kelasId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Kelas',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export default { getKelasController, searchKelasController, createKelasController, getKelasByIdController };

@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createKelasValidation } from '../validation/kelasValidation.js';
+import { createKelasValidation, getKelasValidation } from '../validation/kelasValidation.js';
 
 const getKelasService = async () => {
   return prismaClient.kelas.findMany({
@@ -64,4 +64,25 @@ const createKelasService = async (request) => {
   });
 };
 
-export default { getKelasService, searchKelasService, createKelasService };
+const getKelasByIdService = async (kelasId) => {
+  kelasId = await validation(getKelasValidation, kelasId);
+  const kelas = await prismaClient.kelas.findFirst({
+    where: {
+      id_kelas: kelasId,
+    },
+    select: {
+      id_kelas: true,
+      nama_kelas: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!kelas) {
+    throw new ResponseError(404, 'Kelas tidak ditemukan');
+  }
+
+  return kelas;
+};
+
+export default { getKelasService, searchKelasService, createKelasService, getKelasByIdService };
