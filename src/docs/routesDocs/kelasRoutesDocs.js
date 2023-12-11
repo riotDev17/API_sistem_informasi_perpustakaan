@@ -23,6 +23,37 @@
  *
  * */
 
+// ====== SEARCH KELAS =======
+/**
+ * @openapi
+ * /api/kelas/search:
+ *  get:
+ *    tags:
+ *      - Kelas
+ *    summary: Search Kelas
+ *    description: Search Kelas
+ *    parameters:
+ *      - name: nama_kelas
+ *        in: query
+ *        required: true
+ *        description: search kelas
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Search Kelas Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Kelas Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Kelas Unauthorized'
+ *
+ * */
 
 // ====== ADD KELAS =======
 /**

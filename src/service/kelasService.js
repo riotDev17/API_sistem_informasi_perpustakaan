@@ -17,6 +17,29 @@ const getKelasService = async () => {
   });
 };
 
+const searchKelasService = async (request) => {
+  const { nama_kelas } = request;
+  const kelas = await prismaClient.kelas.findMany({
+    where: {
+      nama_kelas: {
+        contains: nama_kelas,
+      },
+    },
+    select: {
+      id_kelas: true,
+      nama_kelas: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (kelas.length === 0) {
+    throw new ResponseError(404, 'Kelas tidak ditemukan');
+  }
+
+  return kelas;
+};
+
 
 const createKelasService = async (request) => {
   const kelas = await validation(createKelasValidation, request);
@@ -41,4 +64,4 @@ const createKelasService = async (request) => {
   });
 };
 
-export default { getKelasService, createKelasService };
+export default { getKelasService, searchKelasService, createKelasService };
