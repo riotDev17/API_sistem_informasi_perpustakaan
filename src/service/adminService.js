@@ -12,63 +12,7 @@ import {
 } from '../validation/adminValidation.js';
 import uploadFile from '../utils/multer.js';
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    RegisterAdmin:
- *      type: object
- *      required:
- *        - username
- *        - password
- *      properties:
- *        username:
- *          type: string
- *          description: username admin
- *        password:
- *          type: string
- *          description: password admin
- *    RegisterAdminSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: object
- *          properties:
- *            id_admin:
- *              type: string
- *              description: id admin
- *            username:
- *              type: string
- *              description: username admin
- *            foto_admin:
- *              type: string
- *              description: foto admin
- *            createdAt:
- *              type: string
- *              description: created at
- *            updatedAt:
- *              type: string
- *              description: updated at
- *    RegisterAdminFailed:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Bad Request
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Bad Request
- *          description: Message
- */
+
 const registerAdminService = async (request) => {
   const admin = await validation(registerAdminValidation, request);
   const isUsernameExist = await prismaClient.admin.count({
@@ -78,7 +22,7 @@ const registerAdminService = async (request) => {
   });
 
   if (isUsernameExist === 1) {
-    throw new ResponseError(400, 'Username sudah terdaftar');
+    throw new ResponseError(409, 'Username sudah terdaftar');
   }
 
   admin.password = await bcrypt.hash(admin.password, 10);
@@ -94,51 +38,7 @@ const registerAdminService = async (request) => {
   });
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    LoginAdmin:
- *      type: object
- *      required:
- *        - username
- *        - password
- *      properties:
- *        username:
- *          type: string
- *          description: username admin
- *        password:
- *          type: string
- *          description: password admin
- *    LoginAdminSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: object
- *          properties:
- *            token:
- *              type: string
- *              description: token
- *    LoginAdminFailed:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Bad Request
- *          description: Status
- *        message:
- *          type: string
- *          default: Message Bad Request
- *          description: Message
- * */
+
 const loginAdminService = async (request) => {
   const admin = await validation(loginAdminValidation, request);
   const adminData = await prismaClient.admin.findFirst({
@@ -169,52 +69,6 @@ const loginAdminService = async (request) => {
   }
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    GetAdminSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *        data:
- *          type: object
- *          properties:
- *            id_admin:
- *              type: string
- *              description: id admin
- *            username:
- *              type: string
- *              description: username admin
- *            foto_admin:
- *              type: string
- *              description: foto admin
- *            createdAt:
- *              type: string
- *              description: created at
- *            updatedAt:
- *              type: string
- *              description: updated at
- *    UnauthorizedGetAdmin:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: Message Unauthorized
- *
- * */
 const getAdminService = async (username) => {
   username = validation(getAdminValidation, username);
   const admin = await prismaClient.admin.findFirst({
@@ -283,33 +137,7 @@ const updateAdminService = async (request) => {
   });
 };
 
-/**
- * @openapi
- * components:
- *  schemas:
- *    LogoutAdminSuccess:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Success
- *          description: Success
- *        message:
- *          type: string
- *          default: Message Success
- *          description: message
- *    UnauthorizedLogoutAdmin:
- *      type: object
- *      properties:
- *        status:
- *          type: string
- *          default: Unauthorized
- *          description: Unauthorized
- *        message:
- *          type: string
- *          default: Message Unauthorized
- *          description: Message Unauthorized
- * */
+
 const logoutAdminService = async (username) => {
   username = validation(logoutAdminValidation, username);
   const admin = await prismaClient.admin.findFirst({
