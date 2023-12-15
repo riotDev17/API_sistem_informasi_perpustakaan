@@ -5,7 +5,7 @@ const fileStorage = multer.diskStorage({
     cb(null, 'images');
   },
   filename: (req, file, cb) => {
-    cb(null, new Date().toString() + '-' + file.originalname);
+    cb(null, new Date().getTime() + '-' + file.originalname);
   },
 });
 
@@ -28,16 +28,3 @@ const uploadFile = multer({
 });
 
 export default uploadFile;
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, 'images');
-//   },
-//   filename: (req, file, cb) => {
-//     cb(null, 'test.png');
-//   },
-// });
-//
-// const uploadFile = multer({ storage: storage });
-//
-// export default uploadFile;

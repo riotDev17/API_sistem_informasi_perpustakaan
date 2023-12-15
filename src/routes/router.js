@@ -3,6 +3,7 @@ import adminController from '../controller/adminController.js';
 import agamaController from '../controller/agamaController.js';
 import kelasController from '../controller/kelasController.js';
 import rakBukuController from '../controller/rakBukuController.js';
+import bukuController from '../controller/bukuController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = new express.Router();
@@ -36,5 +37,8 @@ router.post('/api/rak-buku', rakBukuController.createRakBukuController);
 router.get('/api/rak-buku/:rakBukuId', rakBukuController.getRakBukuByIdController);
 router.put('/api/rak-buku/:rakBukuId', rakBukuController.updateRakBukuController);
 router.delete('/api/rak-buku/:rakBukuId', rakBukuController.deleteRakBukuController);
+
+// BUKU
+router.post('/api/buku', bukuController.createBukuController);
 
 export { router };

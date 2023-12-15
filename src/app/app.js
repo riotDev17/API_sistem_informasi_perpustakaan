@@ -1,5 +1,6 @@
 import cors from 'cors';
 import express from 'express';
+import bodyParser from 'body-parser';
 import swaggerDocs from '../utils/swagger.js';
 import { auth } from '../routes/auth.js';
 import { router } from '../routes/router.js';
@@ -14,7 +15,9 @@ app.use(cors({
   credentials: true,
 }));
 
-app.use(express.json())
+app.use(express.json());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(auth);
 app.use(router);
 app.use(errorMiddleware);
