@@ -138,3 +138,59 @@
  *              $ref: '#/components/schemas/Get Buku By ID Not Found'
  *
  * */
+
+// ====== UPDATE BUKU ======
+/**
+ * @openapi
+ * /api/buku/{bukuId}:
+ *  put:
+ *    tags:
+ *      - Buku
+ *    summary: Update Buku
+ *    description: Update Buku
+ *    parameters:
+ *      - name: bukuId
+ *        in: path
+ *        required: true
+ *        description: id buku
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        multipart/form-data:
+ *          schema:
+ *            $ref: '#/components/schemas/Update Buku'
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Buku Success'
+ *      400:
+ *        description: Bad Request
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Buku Bad Request'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Buku Not Found'
+ *      409:
+ *        description: Conflict
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Buku Conflict'
+ *
+ * */
