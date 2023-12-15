@@ -17,6 +17,29 @@ const getRakBukuService = async () => {
   });
 };
 
+const searchRakBukuService = async (request) => {
+  const { nama_rak_buku } = request;
+  const rakBuku = await prismaClient.rakBuku.findMany({
+    where: {
+      nama_rak_buku: {
+        contains: nama_rak_buku,
+      },
+    },
+    select: {
+      id_rak_buku: true,
+      nama_rak_buku: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (rakBuku.length === 0) {
+    throw new ResponseError(404, 'Rak Buku tidak ditemukan');
+  }
+
+  return rakBuku;
+};
+
 const createRakBukuService = async (request) => {
   const rakBuku = await validation(createRakBukuValidation, request);
   const isRakBukuExist = await prismaClient.rakBuku.count({
@@ -41,6 +64,7 @@ const createRakBukuService = async (request) => {
 };
 
 export default {
+  searchRakBukuService,
   getRakBukuService,
   createRakBukuService,
 };
