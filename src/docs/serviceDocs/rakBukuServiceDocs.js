@@ -185,3 +185,59 @@
  *          default: Message Conflict
  *          description: message
  * */
+
+// ======= GET RAK BUKU BY ID =======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Get Rak Buku By ID Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: object
+ *          properties:
+ *            id_rak_buku:
+ *              type: string
+ *              description: id rak buku
+ *            nama_rak_buku:
+ *              type: string
+ *              description: nama rak buku
+ *            createdAt:
+ *              type: string
+ *              description: waktu dibuat
+ *            updatedAt:
+ *              type: string
+ *              description: waktu diupdate
+ *    Get Rak Buku By ID Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: message
+ *    Get Rak Buku By ID Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Not Found
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: message
+ *
+ * */

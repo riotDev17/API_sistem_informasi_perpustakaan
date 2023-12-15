@@ -100,3 +100,40 @@
  *              $ref: '#/components/schemas/Add Rak Buku Conflict'
  *
  * */
+
+// ======= GET RAK BUKU BY ID=======
+/**
+ * @openapi
+ * /api/rak-buku/{rakBukuId}:
+ *  get:
+ *    tags:
+ *      - Rak Buku
+ *    summary: Get Rak Buku By ID
+ *    parameters:
+ *      - name: rakBukuId
+ *        in: path
+ *        required: true
+ *        description: Rak Buku ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Get Rak Buku By ID Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Rak Buku By ID Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Rak Buku By ID Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Rak Buku By ID Not Found'
+ *
+ * */
