@@ -79,9 +79,9 @@ model Buku {
   judul_buku   String       @db.VarChar(50)
   pengarang    String       @db.VarChar(50)
   penerbit     String       @db.VarChar(50)
-  tahun_terbit Int          @db.Integer
+  tahun_terbit String       @db.VarChar(10)
   deskripsi    String       @db.Text
-  stok_buku    Int          @db.Integer
+  stok_buku    String       @db.VarChar(100)
   foto_buku    String?      @db.Text
   id_rak_buku  String
   rak_buku     RakBuku      @relation(fields: [id_rak_buku], references: [id_rak_buku])
