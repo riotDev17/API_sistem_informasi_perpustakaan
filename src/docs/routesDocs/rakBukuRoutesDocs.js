@@ -193,3 +193,40 @@
  *              $ref: '#/components/schemas/Update Rak Buku Conflict'
  *
  * */
+
+// ======= DELETE RAK BUKU =======
+/**
+ * @openapi
+ * /api/rak-buku/{rakBukuId}:
+ *  delete:
+ *    tags:
+ *      - Rak Buku
+ *    summary: Delete Rak Buku
+ *    parameters:
+ *      - name: rakBukuId
+ *        in: path
+ *        required: true
+ *        description: Rak Buku ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Delete Rak Buku Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Rak Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Rak Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Rak Buku Not Found'
+ *
+ * */
