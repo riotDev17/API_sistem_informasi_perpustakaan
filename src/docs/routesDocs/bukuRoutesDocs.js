@@ -100,3 +100,41 @@
  *              $ref: '#/components/schemas/Add Buku Conflict'
  *
  * */
+
+// ====== GET BUKU BY ID ======
+/**
+ * @openapi
+ * /api/buku/{bukuId}:
+ *  get:
+ *    tags:
+ *      - Buku
+ *    summary: Get Buku By ID
+ *    description: Get Buku By ID
+ *    parameters:
+ *      - name: bukuId
+ *        in: path
+ *        required: true
+ *        description: id buku
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Buku By ID Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Buku By ID Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Buku By ID Not Found'
+ *
+ * */
