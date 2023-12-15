@@ -1,3 +1,53 @@
+// ====== GET BUKU ======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Get Buku Success:
+ *      type: object
+ *      properties:
+ *        id_buku:
+ *          type: string
+ *          description: id buku
+ *        judul_buku:
+ *          type: string
+ *          description: judul buku
+ *        pengarang:
+ *          type: string
+ *          description: pengarang buku
+ *        penerbit:
+ *          type: string
+ *          description: penerbit buku
+ *        tahun_terbit:
+ *          type: string
+ *          description: tahun terbit buku
+ *        deskripsi:
+ *          type: string
+ *          description: deskripsi buku
+ *        stok_buku:
+ *          type: string
+ *          description: stok buku
+ *        foto_buku:
+ *          type: string
+ *          description: foto buku
+ *        rak_buku:
+ *          type: object
+ *          properties:
+ *            id_rak_buku:
+ *              type: string
+ *              description: id rak buku
+ *            nama_rak_buku:
+ *              type: string
+ *              description: nama rak buku
+ *        createdAt:
+ *          type: string
+ *          description: create date
+ *        updatedAt:
+ *          type: string
+ *          description: update date
+ *
+ * */
+
 // ====== ADD BUKU ======
 /**
  * @openapi

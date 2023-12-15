@@ -1,3 +1,21 @@
+// ====== GET BUKU ======
+/**
+ * @openapi
+ * /api/buku:
+ *  get:
+ *    tags:
+ *      - Buku
+ *    summary: Get Buku
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Buku Success'
+ *
+ * */
+
 // ====== ADD BUKU ======
 /**
  * @openapi
