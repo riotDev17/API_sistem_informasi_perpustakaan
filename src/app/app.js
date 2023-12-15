@@ -1,11 +1,11 @@
 import cors from 'cors';
 import express from 'express';
+import * as path from 'path';
 import bodyParser from 'body-parser';
 import swaggerDocs from '../utils/swagger.js';
 import { auth } from '../routes/auth.js';
 import { router } from '../routes/router.js';
 import { errorMiddleware } from '../middleware/errorMiddleware.js';
-import * as path from 'path';
 
 export const app = express();
 swaggerDocs(app, 3000);
