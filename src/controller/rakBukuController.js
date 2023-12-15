@@ -72,6 +72,19 @@ const updateRakBukuController = async (req, res, next) => {
   }
 };
 
+const deleteRakBukuController = async (req, res, next) => {
+  try {
+    const { rakBukuId } = req.params;
+    await rakBukuService.deleteRakBukuService(rakBukuId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil menghapus data Rak Buku',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export default {
   searchRakBukuController,
@@ -79,4 +92,5 @@ export default {
   createRakBukuController,
   getRakBukuByIdController,
   updateRakBukuController,
+  deleteRakBukuController,
 };

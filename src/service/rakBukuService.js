@@ -122,10 +122,30 @@ const updateRakBukuService = async (request) => {
   });
 };
 
+const deleteRakBukuService = async (rakBukuId) => {
+  rakBukuId = await validation(getRakBukuValidation, rakBukuId);
+  const rakBukuExist = await prismaClient.rakBuku.count({
+    where: {
+      id_rak_buku: rakBukuId,
+    },
+  });
+
+  if (rakBukuExist !== 1) {
+    throw new ResponseError(404, 'Rak Buku tidak ditemukan');
+  }
+
+  return prismaClient.rakBuku.delete({
+    where: {
+      id_rak_buku: rakBukuId,
+    },
+  });
+};
+
 export default {
   searchRakBukuService,
   getRakBukuService,
   createRakBukuService,
   getRakBukuByIdService,
   updateRakBukuService,
+  deleteRakBukuService,
 };
