@@ -57,6 +57,98 @@
  *
  * */
 
+// ====== SEARCH BUKU ======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Search Buku:
+ *      type: object
+ *      required:
+ *        - judul_buku
+ *      properties:
+ *        judul_buku:
+ *          type: string
+ *          description: judul buku
+ *    Search Buku Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *        data:
+ *          type: array
+ *          items:
+ *            type: object
+ *            properties:
+ *              id_buku:
+ *                type: string
+ *                description: id buku
+ *              judul_buku:
+ *                type: string
+ *                description: judul buku
+ *              pengarang:
+ *                type: string
+ *                description: pengarang buku
+ *              penerbit:
+ *                type: string
+ *                description: penerbit buku
+ *              tahun_terbit:
+ *                type: string
+ *                description: tahun terbit buku
+ *              deskripsi:
+ *                type: string
+ *                description: deskripsi buku
+ *              stok_buku:
+ *                type: string
+ *                description: stok buku
+ *              foto_buku:
+ *                type: string
+ *                description: foto buku
+ *              rak_buku:
+ *                type: object
+ *                properties:
+ *                  id_rak_buku:
+ *                    type: string
+ *                    description: id rak buku
+ *                  nama_rak_buku:
+ *                    type: string
+ *                    description: nama rak buku
+ *              createdAt:
+ *                type: string
+ *                description: create date
+ *              updatedAt:
+ *                type: string
+ *                description: update date
+ *    Search Buku Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: message
+ *    Search Buku Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Not Found
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: message
+ *
+ * */
+
 // ====== ADD BUKU ======
 /**
  * @openapi

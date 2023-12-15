@@ -22,6 +22,43 @@
  *
  * */
 
+// ====== SEARCH BUKU ======
+/**
+ * @openapi
+ * /api/buku/search:
+ *  get:
+ *    tags:
+ *      - Buku
+ *    summary: Search Buku
+ *    description: Search Buku
+ *    parameters:
+ *      - name: judul_buku
+ *        in: query
+ *        required: true
+ *        description: search buku
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Search Buku Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Buku Not Found'
+ * */
+
 // ====== ADD BUKU ======
 /**
  * @openapi
