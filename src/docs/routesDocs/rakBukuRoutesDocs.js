@@ -22,9 +22,44 @@
  *
  * */
 
+// ======= SEARCH RAK BUKU =======
+/**
+ * @openapi
+ * /api/rak-buku/search:
+ *  get:
+ *    tags:
+ *      - Rak Buku
+ *    summary: Search Rak Buku
+ *    parameters:
+ *      - name: nama_rak_buku
+ *        in: query
+ *        required: true
+ *        description: search rak buku
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Rak Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Rak Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Rak Buku Not Found'
+ *
+ * */
 
 // ======= CREATE RAK BUKU =======
-
 /**
  * @openapi
  * /api/rak-buku:
