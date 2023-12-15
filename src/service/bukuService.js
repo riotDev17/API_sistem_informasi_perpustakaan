@@ -29,6 +29,41 @@ const getBukuService = async () => {
   });
 };
 
+const searchBukuService = async (request) => {
+  const { judul_buku } = request;
+  const buku = await prismaClient.buku.findMany({
+    where: {
+      judul_buku: {
+        contains: judul_buku,
+      },
+    },
+    select: {
+      id_buku: true,
+      judul_buku: true,
+      pengarang: true,
+      penerbit: true,
+      tahun_terbit: true,
+      deskripsi: true,
+      stok_buku: true,
+      foto_buku: true,
+      rak_buku: {
+        select: {
+          id_rak_buku: true,
+          nama_rak_buku: true,
+        },
+      },
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (buku.length === 0) {
+    throw new ResponseError(404, 'Buku Tidak Ditemukan');
+  }
+
+  return buku;
+};
+
 const createBukuService = async (request) => {
   const buku = await validation(createBukuValidation, request);
   const isBukuExist = await prismaClient.buku.count({
@@ -68,4 +103,5 @@ const createBukuService = async (request) => {
 export default {
   getBukuService,
   createBukuService,
+  searchBukuService,
 };

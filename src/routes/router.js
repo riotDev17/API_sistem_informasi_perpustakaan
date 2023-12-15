@@ -40,6 +40,7 @@ router.delete('/api/rak-buku/:rakBukuId', rakBukuController.deleteRakBukuControl
 
 // BUKU
 router.get('/api/buku', bukuController.getBukuController);
+router.get('/api/buku/search', bukuController.searchBukuController);
 router.post('/api/buku', bukuController.createBukuController);
 
 export { router };

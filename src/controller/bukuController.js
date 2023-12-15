@@ -14,6 +14,20 @@ const getBukuController = async (req, res, next) => {
   }
 };
 
+const searchBukuController = async (req, res, next) => {
+  try {
+    const request = req.query;
+    const result = await bukuService.searchBukuService(request);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Buku',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createBukuController = async (req, res, next) => {
   try {
     uploadFile.single('foto_buku')(req, res, async (error) => {
@@ -43,4 +57,5 @@ const createBukuController = async (req, res, next) => {
 export default {
   getBukuController,
   createBukuController,
+  searchBukuController,
 };
