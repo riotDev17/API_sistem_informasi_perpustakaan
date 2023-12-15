@@ -496,3 +496,45 @@
  *
  *
  * */
+
+// ====== DELETE BUKU ======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Delete Buku Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *    Delete Buku Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: message
+ *    Delete Buku Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Status
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: message
+ *
+ *
+ * */

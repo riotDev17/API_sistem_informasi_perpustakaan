@@ -194,3 +194,41 @@
  *              $ref: '#/components/schemas/Update Buku Conflict'
  *
  * */
+
+// ====== DELETE BUKU ======
+/**
+ * @openapi
+ * /api/buku/{bukuId}:
+ *  delete:
+ *    tags:
+ *      - Buku
+ *    summary: Delete Buku
+ *    description: Delete Buku
+ *    parameters:
+ *      - name: bukuId
+ *        in: path
+ *        required: true
+ *        description: id buku
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Delete Buku Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Buku Not Found'
+ *
+ * */
