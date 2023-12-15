@@ -54,8 +54,23 @@ const createBukuController = async (req, res, next) => {
   }
 };
 
+const getBukuByIdController = async (req, res, next) => {
+  try {
+    const { bukuId } = req.params;
+    const result = await bukuService.getBukuByIdService(bukuId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Buku',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getBukuController,
   createBukuController,
   searchBukuController,
+  getBukuByIdController,
 };
