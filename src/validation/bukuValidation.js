@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+const getBukuValidation = Joi.string().required();
+
 const createBukuValidation = Joi.object({
   judul_buku: Joi.string().max(50).required(),
   pengarang: Joi.string().max(50).required(),
@@ -13,5 +15,6 @@ const createBukuValidation = Joi.object({
 
 
 export {
+  getBukuValidation,
   createBukuValidation,
 };

@@ -1,5 +1,18 @@
-import bukuService from '../service/bukuService.js';
 import uploadFile from '../utils/multer.js';
+import bukuService from '../service/bukuService.js';
+
+const getBukuController = async (req, res, next) => {
+  try {
+    const result = await bukuService.getBukuService();
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Buku',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const createBukuController = async (req, res, next) => {
   try {
@@ -10,7 +23,7 @@ const createBukuController = async (req, res, next) => {
 
       const buku = req.body;
       buku.foto_buku = req.file.path;
-      
+
       try {
         const result = await bukuService.createBukuService(buku);
         res.status(200).json({
@@ -27,7 +40,7 @@ const createBukuController = async (req, res, next) => {
   }
 };
 
-
 export default {
+  getBukuController,
   createBukuController,
 };

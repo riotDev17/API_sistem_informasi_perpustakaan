@@ -39,6 +39,7 @@ router.put('/api/rak-buku/:rakBukuId', rakBukuController.updateRakBukuController
 router.delete('/api/rak-buku/:rakBukuId', rakBukuController.deleteRakBukuController);
 
 // BUKU
+router.get('/api/buku', bukuController.getBukuController);
 router.post('/api/buku', bukuController.createBukuController);
 
 export { router };
