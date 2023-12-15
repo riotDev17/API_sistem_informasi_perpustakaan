@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createBukuValidation, getBukuValidation } from '../validation/bukuValidation.js';
+import { createBukuValidation, getBukuValidation, updateBukuValidation } from '../validation/bukuValidation.js';
 
 const getBukuService = async () => {
   return prismaClient.buku.findMany({
@@ -132,9 +132,56 @@ const getBukuByIdService = async (bukuId) => {
   return buku;
 };
 
+const updateBukuService = async (request) => {
+  const buku = await validation(updateBukuValidation, request);
+  const isBukuExist = await prismaClient.buku.count({
+    where: {
+      id_buku: buku.id_buku,
+    },
+  });
+
+  const nameBukuExist = await prismaClient.buku.count({
+    where: {
+      judul_buku: buku.judul_buku,
+    },
+  });
+
+  if (isBukuExist !== 1) {
+    throw new ResponseError(404, 'Buku Tidak Ditemukan');
+  } else if (nameBukuExist === 1) {
+    throw new ResponseError(409, 'Buku Sudah Ada');
+  }
+
+  return prismaClient.buku.update({
+    where: {
+      id_buku: buku.id_buku,
+    },
+    data: buku,
+    select: {
+      id_buku: true,
+      judul_buku: true,
+      pengarang: true,
+      penerbit: true,
+      tahun_terbit: true,
+      deskripsi: true,
+      stok_buku: true,
+      foto_buku: true,
+      rak_buku: {
+        select: {
+          id_rak_buku: true,
+          nama_rak_buku: true,
+        },
+      },
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
 export default {
   getBukuService,
   createBukuService,
   searchBukuService,
   getBukuByIdService,
+  updateBukuService,
 };
