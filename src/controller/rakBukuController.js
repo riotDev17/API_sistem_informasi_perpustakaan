@@ -42,9 +42,24 @@ const createRakBukuController = async (req, res, next) => {
   }
 };
 
+const getRakBukuByIdController = async (req, res, next) => {
+  try {
+    const { rakBukuId } = req.params;
+    const result = await rakBukuService.getRakBukuByIdService(rakBukuId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil mendapatkan data Rak Buku',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export default {
   searchRakBukuController,
   getRakBukuController,
   createRakBukuController,
+  getRakBukuByIdController,
 };

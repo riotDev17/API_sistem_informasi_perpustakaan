@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createRakBukuValidation } from '../validation/rakBukuValidation.js';
+import { createRakBukuValidation, getRakBukuValidation } from '../validation/rakBukuValidation.js';
 
 const getRakBukuService = async () => {
   return prismaClient.rakBuku.findMany({
@@ -63,8 +63,30 @@ const createRakBukuService = async (request) => {
   });
 };
 
+const getRakBukuByIdService = async (rakBukuId) => {
+  rakBukuId = await validation(getRakBukuValidation, rakBukuId);
+  const rakBuku = await prismaClient.rakBuku.findUnique({
+    where: {
+      id_rak_buku: rakBukuId,
+    },
+    select: {
+      id_rak_buku: true,
+      nama_rak_buku: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!rakBuku) {
+    throw new ResponseError(404, 'Rak Buku tidak ditemukan');
+  }
+
+  return rakBuku;
+};
+
 export default {
   searchRakBukuService,
   getRakBukuService,
   createRakBukuService,
+  getRakBukuByIdService,
 };
