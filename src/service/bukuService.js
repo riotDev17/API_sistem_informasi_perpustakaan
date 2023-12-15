@@ -178,10 +178,30 @@ const updateBukuService = async (request) => {
   });
 };
 
+const deleteBukuService = async (bukuId) => {
+  bukuId = await validation(getBukuValidation, bukuId);
+  const bukuExist = await prismaClient.buku.count({
+    where: {
+      id_buku: bukuId,
+    },
+  });
+
+  if (bukuExist !== 1) {
+    throw new ResponseError(404, 'Buku Tidak Ditemukan');
+  }
+
+  return prismaClient.buku.delete({
+    where: {
+      id_buku: bukuId,
+    },
+  });
+};
+
 export default {
   getBukuService,
   createBukuService,
   searchBukuService,
   getBukuByIdService,
   updateBukuService,
+  deleteBukuService,
 };

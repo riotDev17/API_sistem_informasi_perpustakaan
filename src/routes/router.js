@@ -44,5 +44,6 @@ router.get('/api/buku/search', bukuController.searchBukuController);
 router.post('/api/buku', bukuController.createBukuController);
 router.get('/api/buku/:bukuId', bukuController.getBukuByIdController);
 router.put('/api/buku/:bukuId', bukuController.updateBukuController);
+router.delete('/api/buku/:bukuId', bukuController.deleteBukuController);
 
 export { router };

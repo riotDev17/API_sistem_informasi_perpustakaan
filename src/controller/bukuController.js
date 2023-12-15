@@ -96,10 +96,24 @@ const updateBukuController = async (req, res, next) => {
   }
 };
 
+const deleteBukuController = async (req, res, next) => {
+  try {
+    const { bukuId } = req.params;
+    await bukuService.deleteBukuService(bukuId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Menghapus Data Buku',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getBukuController,
   createBukuController,
   searchBukuController,
   getBukuByIdController,
   updateBukuController,
+  deleteBukuController,
 };
