@@ -30,7 +30,7 @@ const searchKelasController = async (req, res, next) => {
 
 const createKelasController = async (req, res, next) => {
   try {
-    const request = req.query;
+    const request = req.body;
     const result = await kelasService.createKelasService(request);
     res.status(200).json({
       status: 'Success',
