@@ -13,6 +13,12 @@
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Get Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Buku Unauthorized'
  *
  * */
 

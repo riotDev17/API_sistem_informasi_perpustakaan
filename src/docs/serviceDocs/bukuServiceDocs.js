@@ -45,6 +45,15 @@
  *        updatedAt:
  *          type: string
  *          description: update date
+ *    Get Buku Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          description: status response
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
  *
  * */
 
