@@ -1,3 +1,51 @@
+// ======= GET RAK BUKU =======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Get Rak Buku Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: array
+ *          items:
+ *            type: object
+ *            properties:
+ *              id_rak_buku:
+ *                type: string
+ *                description: id rak buku
+ *              nama_rak_buku:
+ *                type: string
+ *                description: nama rak buku
+ *              createdAt:
+ *                type: string
+ *                description: waktu dibuat
+ *              updatedAt:
+ *                type: string
+ *                description: waktu diupdate
+ *    Get Rak Buku Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: message
+ *
+ * */
+
+
 // ======= CREATE RAK BUKU =======
 
 /**
@@ -71,7 +119,4 @@
  *          type: string
  *          default: Message Conflict
  *          description: message
- *
- *
- *
  * */

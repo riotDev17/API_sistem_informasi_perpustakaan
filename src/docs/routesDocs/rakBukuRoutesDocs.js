@@ -1,3 +1,28 @@
+// ======= GET RAK BUKU =======
+/**
+ * @openapi
+ * /api/rak-buku:
+ *  get:
+ *    tags:
+ *      - Rak Buku
+ *    summary: Get Rak Buku
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Rak Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Rak Buku Unauthorized'
+ *
+ * */
+
+
 // ======= CREATE RAK BUKU =======
 
 /**
