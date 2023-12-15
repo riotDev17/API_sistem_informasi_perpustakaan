@@ -30,6 +30,7 @@ router.put('/api/kelas/:kelasId', kelasController.updateKelasController);
 router.delete('/api/kelas/:kelasId', kelasController.deleteKelasController);
 
 // RAK BUKU
+router.get('/api/rak-buku', rakBukuController.getRakBukuController);
 router.post('/api/rak-buku', rakBukuController.createRakBukuController);
 
 export { router };

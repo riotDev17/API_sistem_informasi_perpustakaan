@@ -3,6 +3,19 @@ import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
 import { createRakBukuValidation } from '../validation/rakBukuValidation.js';
 
+const getRakBukuService = async () => {
+  return prismaClient.rakBuku.findMany({
+    select: {
+      id_rak_buku: true,
+      nama_rak_buku: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+};
 
 const createRakBukuService = async (request) => {
   const rakBuku = await validation(createRakBukuValidation, request);
@@ -28,5 +41,6 @@ const createRakBukuService = async (request) => {
 };
 
 export default {
+  getRakBukuService,
   createRakBukuService,
 };
