@@ -35,6 +35,7 @@ const searchBukuService = async (request) => {
     where: {
       judul_buku: {
         contains: judul_buku,
+        mode: 'insensitive',
       },
     },
     select: {
