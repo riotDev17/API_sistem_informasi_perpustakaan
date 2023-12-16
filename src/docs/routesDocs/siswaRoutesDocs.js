@@ -1,3 +1,28 @@
+// ====== GET SISWA ======
+/**
+ * @openapi
+ * /api/siswa:
+ *  get:
+ *    tags:
+ *      - Siswa
+ *    summary: Get Siswa
+ *    description: Get Siswa
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Siswa Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Siswa Unauthorized'
+ *
+ * */
+
 // ====== ADD SISWA ======
 /**
  * @openapi
