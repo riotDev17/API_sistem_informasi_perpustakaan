@@ -96,6 +96,19 @@ const updateSiswaController = async (req, res, next) => {
   }
 };
 
+const deleteSiswaController = async (req, res, next) => {
+  try {
+    const { siswaId } = req.params;
+    await siswaService.deleteSiswaService(siswaId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Menghapus Data Siswa',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export default {
   getSiswaController,
@@ -103,4 +116,5 @@ export default {
   createSiswaController,
   getSiswaByIdController,
   updateSiswaController,
+  deleteSiswaController,
 };

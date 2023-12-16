@@ -235,10 +235,30 @@ const updateSiswaService = async (request) => {
   });
 };
 
+const deleteSiswaService = async (siswaId) => {
+  siswaId = await validation(getSiswaValidation, siswaId);
+  const siswaExist = await prismaClient.siswa.count({
+    where: {
+      id_siswa: siswaId,
+    },
+  });
+
+  if (siswaExist !== 1) {
+    throw new ResponseError(404, 'Siswa tidak ditemukan');
+  }
+
+  return prismaClient.siswa.delete({
+    where: {
+      id_siswa: siswaId,
+    },
+  });
+};
+
 export default {
   getSiswaService,
   createSiswaService,
   searchSiswaService,
   getSiswaByIdService,
   updateSiswaService,
+  deleteSiswaService,
 };
