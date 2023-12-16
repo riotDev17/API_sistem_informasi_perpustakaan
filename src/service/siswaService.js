@@ -38,6 +38,63 @@ const getSiswaService = async () => {
   });
 };
 
+const searchSiswaService = async (request) => {
+  const { nama_siswa, no_anggota } = request;
+  const siswa = await prismaClient.siswa.findMany({
+    where: {
+      OR: [
+        {
+          nama_siswa: {
+            contains: nama_siswa,
+            mode: 'insensitive',
+          },
+        },
+        {
+          no_anggota: {
+            contains: no_anggota,
+            mode: 'insensitive',
+          },
+        },
+      ],
+    },
+    select: {
+      id_siswa: true,
+      no_anggota: true,
+      nama_siswa: true,
+      nis: true,
+      nisn: true,
+      tanggal_lahir: true,
+      tempat_lahir: true,
+      jenis_kelamin: true,
+      agama: {
+        select: {
+          id_agama: true,
+          nama_agama: true,
+        },
+      },
+      kelas: {
+        select: {
+          id_kelas: true,
+          nama_kelas: true,
+        },
+      },
+      alamat: true,
+      foto_siswa: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
+    },
+  });
+
+  if (siswa.length === 0) {
+    throw new ResponseError(404, 'Siswa tidak ditemukan');
+  }
+
+  return siswa;
+};
+
 const createSiswaService = async (request) => {
   const siswa = await validation(createSiswaValidation, request);
   const siswaExist = await prismaClient.siswa.count({
@@ -86,4 +143,5 @@ const createSiswaService = async (request) => {
 export default {
   getSiswaService,
   createSiswaService,
+  searchSiswaService,
 };

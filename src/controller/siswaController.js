@@ -14,6 +14,20 @@ const getSiswaController = async (req, res, next) => {
   }
 };
 
+const searchSiswaController = async (req, res, next) => {
+  try {
+    const request = req.query;
+    const result = await siswaService.searchSiswaService(request);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mencari Data Siswa',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createSiswaController = async (req, res, next) => {
   try {
     uploadFile.single('foto_siswa')(req, res, async (error) => {
@@ -40,7 +54,9 @@ const createSiswaController = async (req, res, next) => {
   }
 };
 
+
 export default {
   getSiswaController,
+  searchSiswaController,
   createSiswaController,
 };

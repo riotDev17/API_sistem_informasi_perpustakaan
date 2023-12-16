@@ -1,5 +1,7 @@
 import Joi from 'joi';
 
+const getSiswaValidation = Joi.string().max(100).required();
+
 const createSiswaValidation = Joi.object({
   nama_siswa: Joi.string().max(50).required(),
   nis: Joi.string().max(20).required(),
@@ -15,5 +17,6 @@ const createSiswaValidation = Joi.object({
 
 
 export {
+  getSiswaValidation,
   createSiswaValidation,
 };
