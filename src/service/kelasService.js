@@ -23,6 +23,7 @@ const searchKelasService = async (request) => {
     where: {
       nama_kelas: {
         contains: nama_kelas,
+        mode: 'insensitive',
       },
     },
     select: {
