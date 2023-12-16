@@ -7,6 +7,12 @@ const options = {
     info: {
       title: 'API',
       description: 'Ini adalah dokumentasi API untuk projek Sistem Informasi Perpustakaan berbasis Web',
+      version: '1.0.0',
+      contact: {
+        name: 'Thomas Alberto',
+        url: 'https://thomasalberto.vercel.app/',
+        email: 'tomasalberto527@gmail.com',
+      },
     },
     components: {
       securitySchemes: {
