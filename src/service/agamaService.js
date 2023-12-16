@@ -28,6 +28,7 @@ const searchAgamaService = async (request) => {
     where: {
       nama_agama: {
         contains: nama_agama,
+        mode: 'insensitive',
       },
     },
     select: {

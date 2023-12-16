@@ -19,7 +19,7 @@ const searchAgamaController = async (req, res, next) => {
     const result = await agamaService.searchAgamaService(request);
     res.status(200).json({
       status: 'Success',
-      message: `Berhasil Mendapatkan Data Agama ${request.nama_agama}`,
+      message: 'Berhasil Mendapatkan Data Agama',
       data: result,
     });
   } catch (error) {
