@@ -616,3 +616,45 @@
  *
  *
  * */
+
+
+// ====== DELETE SISWA ======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Delete Siswa Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: Success
+ *    Delete Siswa Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Unauthorized
+ *    Delete Siswa Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Not Found
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: Message Not Found
+ *
+ * */

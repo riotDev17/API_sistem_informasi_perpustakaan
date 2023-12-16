@@ -198,3 +198,42 @@
  *              $ref: '#/components/schemas/Update Siswa Conflict'
  *
  * */
+
+
+// ====== DELETE SISWA ======
+/**
+ * @openapi
+ * /api/siswa/{siswaId}:
+ *  delete:
+ *    tags:
+ *      - Siswa
+ *    summary: Delete Siswa
+ *    description: Delete Siswa
+ *    parameters:
+ *      - in: path
+ *        name: siswaId
+ *        description: Siswa ID
+ *        required: true
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Delete Siswa Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Siswa Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Siswa Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Siswa Not Found'
+ *
+ * */
