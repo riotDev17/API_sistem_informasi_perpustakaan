@@ -1,3 +1,4 @@
+import uploadFile from '../utils/multer.js';
 import adminService from '../service/adminService.js';
 
 const registerAdminController = async (req, res, next) => {
@@ -44,17 +45,29 @@ const getAdminController = async (req, res, next) => {
 
 const updateAdminController = async (req, res, next) => {
   try {
-    const { adminId } = req.params;
-    const request = req.body;
-    request.id_admin = adminId;
-    const result = await adminService.updateAdminService(request);
-    res.status(200).json({
-      status: 'Success',
-      message: 'Berhasil Update Data Admin',
-      data: result,
+    uploadFile.single('foto_admin')(req, res, async (error) => {
+      if (error) {
+        next(error);
+      }
+
+      const { adminId } = req.params;
+      const request = req.body;
+      request.id_admin = adminId;
+      request.foto_admin = req.file.path;
+
+      try {
+        const result = await adminService.updateAdminService(request);
+        res.status(200).json({
+          status: 'Success',
+          message: 'Berhasil Mengupdate Data Admin',
+          data: result,
+        });
+      } catch (error) {
+        next(error);
+      }
     });
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 };
 

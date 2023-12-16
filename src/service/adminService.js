@@ -93,40 +93,29 @@ const getAdminService = async (username) => {
 
 const updateAdminService = async (request) => {
   const admin = await validation(updateAdminValidation, request);
-  const adminData = await prismaClient.admin.findUnique({
+  const adminExist = await prismaClient.admin.count({
     where: {
       id_admin: admin.id_admin,
     },
   });
 
-  if (!adminData) {
+  const usernameAdminExist = await prismaClient.admin.count({
+    where: {
+      username: admin.username,
+    },
+  });
+
+  if (adminExist !== 1) {
     throw new ResponseError(404, 'Admin tidak ditemukan');
-  }
-
-  const data = {};
-  if (admin.username) {
-    data.username = admin.username;
-  }
-
-  if (admin.password) {
-    data.password = await bcrypt.hash(admin.password, 10);
-  }
-
-  if (admin.foto_admin) {
-    data.foto_admin = await uploadFile.single('foto_admin')(admin.foto_admin)
-      .then(() => {
-        return request.file.path;
-      })
-      .catch((err) => {
-        throw new ResponseError(400, err.message);
-      });
+  } else if (usernameAdminExist === 1) {
+    throw new ResponseError(409, 'Username sudah terdaftar');
   }
 
   return prismaClient.admin.update({
     where: {
       id_admin: admin.id_admin,
     },
-    data: data,
+    data: admin,
     select: {
       id_admin: true,
       username: true,

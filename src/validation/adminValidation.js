@@ -17,7 +17,6 @@ const logoutAdminValidation = Joi.string().max(100).required();
 const updateAdminValidation = Joi.object({
   id_admin: Joi.string().max(100).required(),
   username: Joi.string().max(50).optional(),
-  password: Joi.string().min(8).max(100).optional(),
   foto_admin: Joi.string().optional(),
 });
 
