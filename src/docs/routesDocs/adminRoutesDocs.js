@@ -89,6 +89,62 @@
  *
  * */
 
+// ======== ADMIN UPDATE =========
+/**
+ * @openapi
+ * /api/admin/{adminId}:
+ *  put:
+ *    tags:
+ *      - Admin
+ *    summary: Update Admin
+ *    description: Update Admin
+ *    parameters:
+ *      - name: adminId
+ *        in: path
+ *        required: true
+ *        description: id admin
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        multipart/form-data:
+ *          schema:
+ *            $ref: '#/components/schemas/Update Admin'
+ *    responses:
+ *      200:
+ *        description: Update Admin Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Admin Success'
+ *      400:
+ *        description: Bad Request
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Admin Bad Request'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Admin Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Admin Not Found'
+ *      409:
+ *        description: Conflict
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Admin Conflict'
+ *
+ * */
+
 // ======== ADMIN LOGOUT =========
 /**
  * @openapi

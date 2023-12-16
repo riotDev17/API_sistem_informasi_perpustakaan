@@ -166,6 +166,100 @@
  *
  * */
 
+// ======== ADMIN UPDATE =========
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Update Admin:
+ *      type: object
+ *      required:
+ *        - username
+ *        - foto_admin
+ *      properties:
+ *        username:
+ *          type: string
+ *          description: username admin
+ *        foto_admin:
+ *          type: file
+ *          description: foto admin
+ *    Update Admin Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Success
+ *          description: Success
+ *        message:
+ *          type: string
+ *          default: Message Success
+ *          description: message
+ *        data:
+ *          type: object
+ *          properties:
+ *            id_admin:
+ *              type: string
+ *              description: id admin
+ *            username:
+ *              type: string
+ *              description: username admin
+ *            foto_admin:
+ *              type: string
+ *              description: foto admin
+ *            createdAt:
+ *              type: string
+ *              description: created at
+ *            updatedAt:
+ *              type: string
+ *              description: updated at
+ *    Update Admin Bad Request:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Bad Request
+ *          description: Status
+ *        message:
+ *          type: string
+ *          default: Message Bad Request
+ *          description: Message
+ *    Update Admin Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Message Unauthorized
+ *    Update Admin Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Not Found
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: Message Not Found
+ *    Update Admin Conflict:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Conflict
+ *          description: Conflict
+ *        message:
+ *          type: string
+ *          default: Message Conflict
+ *          description: Message Conflict
+ *
+ *
+ * */
+
 // ======== ADMIN LOGOUT =========
 /**
  * @openapi
