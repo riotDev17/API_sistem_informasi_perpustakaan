@@ -23,6 +23,36 @@
  *
  * */
 
+// ====== SEARCH SISWA ======
+/**
+ * @openapi
+ * /api/siswa/search:
+ *  get:
+ *    tags:
+ *      - Siswa
+ *    summary: Search Siswa
+ *    description: Search Siswa
+ *    parameters:
+ *      - in: query
+ *        name: nama_siswa
+ *        description: Nama Siswa
+ *        schema:
+ *          type: string
+ *      - in: query
+ *        name: no_anggota
+ *        description: No Anggota
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Siswa Success'
+ *
+ * */
+
 // ====== ADD SISWA ======
 /**
  * @openapi
