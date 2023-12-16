@@ -43,10 +43,10 @@ model Kelas {
 
 model Siswa {
   id_siswa      String       @id @default(uuid())
-  no_anggota    Int          @db.Integer
+  no_anggota    String       @db.VarChar(50)
   nama_siswa    String       @db.VarChar(50)
-  nis           Int          @db.Integer
-  nisn          Int          @db.Integer
+  nis           String       @db.VarChar(20)
+  nisn          String       @db.VarChar(20)
   tanggal_lahir DateTime     @db.Date
   tempat_lahir  String       @db.Text
   jenis_kelamin String       @db.VarChar(15)
