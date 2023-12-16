@@ -4,6 +4,7 @@ import agamaController from '../controller/agamaController.js';
 import kelasController from '../controller/kelasController.js';
 import rakBukuController from '../controller/rakBukuController.js';
 import bukuController from '../controller/bukuController.js';
+import siswaController from '../controller/siswaController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = new express.Router();
@@ -45,5 +46,8 @@ router.post('/api/buku', bukuController.createBukuController);
 router.get('/api/buku/:bukuId', bukuController.getBukuByIdController);
 router.put('/api/buku/:bukuId', bukuController.updateBukuController);
 router.delete('/api/buku/:bukuId', bukuController.deleteBukuController);
+
+// SISWA
+router.post('/api/siswa', siswaController.createSiswaController);
 
 export { router };
