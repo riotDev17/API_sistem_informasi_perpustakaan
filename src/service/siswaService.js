@@ -2,7 +2,7 @@ import { validation } from '../validation/validation.js';
 import { randomNumber } from '../helpers/randomNumber.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createSiswaValidation } from '../validation/siswaValidation.js';
+import { createSiswaValidation, getSiswaValidation } from '../validation/siswaValidation.js';
 
 const getSiswaService = async () => {
   return prismaClient.siswa.findMany({
@@ -140,8 +140,50 @@ const createSiswaService = async (request) => {
   });
 };
 
+const getSiswaByIdService = async (siswaId) => {
+  siswaId = await validation(getSiswaValidation, siswaId);
+  const siswa = await prismaClient.siswa.findUnique({
+    where: {
+      id_siswa: siswaId,
+    },
+    select: {
+      id_siswa: true,
+      no_anggota: true,
+      nama_siswa: true,
+      nis: true,
+      nisn: true,
+      tanggal_lahir: true,
+      tempat_lahir: true,
+      jenis_kelamin: true,
+      agama: {
+        select: {
+          id_agama: true,
+          nama_agama: true,
+        },
+      },
+      kelas: {
+        select: {
+          id_kelas: true,
+          nama_kelas: true,
+        },
+      },
+      alamat: true,
+      foto_siswa: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!siswa) {
+    throw new ResponseError(404, 'Siswa tidak ditemukan');
+  }
+
+  return siswa;
+};
+
 export default {
   getSiswaService,
   createSiswaService,
   searchSiswaService,
+  getSiswaByIdService,
 };

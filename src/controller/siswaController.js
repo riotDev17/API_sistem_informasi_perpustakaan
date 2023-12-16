@@ -54,9 +54,24 @@ const createSiswaController = async (req, res, next) => {
   }
 };
 
+const getSiswaByIdController = async (req, res, next) => {
+  try {
+    const { siswaId } = req.params;
+    const result = await siswaService.getSiswaByIdService(siswaId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Siswa',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export default {
   getSiswaController,
   searchSiswaController,
   createSiswaController,
+  getSiswaByIdController,
 };
