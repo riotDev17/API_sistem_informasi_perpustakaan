@@ -48,6 +48,7 @@ router.put('/api/buku/:bukuId', bukuController.updateBukuController);
 router.delete('/api/buku/:bukuId', bukuController.deleteBukuController);
 
 // SISWA
+router.get('/api/siswa', siswaController.getSiswaController);
 router.post('/api/siswa', siswaController.createSiswaController);
 
 export { router };

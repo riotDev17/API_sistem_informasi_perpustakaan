@@ -1,6 +1,18 @@
 import uploadFile from '../utils/multer.js';
 import siswaService from '../service/siswaService.js';
-import { ResponseError } from '../error/responseError.js';
+
+const getSiswaController = async (req, res, next) => {
+  try {
+    const result = await siswaService.getSiswaService();
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mendapatkan Data Siswa',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 
 const createSiswaController = async (req, res, next) => {
   try {
@@ -29,5 +41,6 @@ const createSiswaController = async (req, res, next) => {
 };
 
 export default {
+  getSiswaController,
   createSiswaController,
 };
