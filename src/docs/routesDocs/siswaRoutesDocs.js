@@ -143,3 +143,58 @@
  *              $ref: '#/components/schemas/Get Siswa By ID Not Found'
  *
  * */
+
+// ====== UPDATE SISWA ======
+/**
+ * @openapi
+ * /api/siswa/{siswaId}:
+ *  put:
+ *    tags:
+ *      - Siswa
+ *    summary: Update Siswa
+ *    description: Update Siswa
+ *    parameters:
+ *      - in: path
+ *        name: siswaId
+ *        description: Siswa ID
+ *        required: true
+ *        schema:
+ *          type: string
+ *    requestBody:
+ *      content:
+ *        multipart/form-data:
+ *          schema:
+ *            $ref: '#/components/schemas/Update Siswa'
+ *    responses:
+ *      200:
+ *        description: Update Siswa Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Siswa Success'
+ *      400:
+ *        description: Bad Request
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Siswa Bad Request'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Siswa Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Siswa Not Found'
+ *      409:
+ *        description: Conflict
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Update Siswa Conflict'
+ *
+ * */
