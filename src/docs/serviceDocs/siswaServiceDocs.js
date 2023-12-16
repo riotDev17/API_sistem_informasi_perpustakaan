@@ -171,6 +171,28 @@
  *              updatedAt:
  *                type: string
  *                description: Updated At
+ *    Search Siswa Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Status
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Message
+ *    Search Siswa Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Status
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: Message
  *
  * */
 

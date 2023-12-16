@@ -50,6 +50,18 @@
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Search Siswa Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Siswa Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Siswa Not Found'
  *
  * */
 
