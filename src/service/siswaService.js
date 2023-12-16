@@ -22,8 +22,8 @@ const createSiswaService = async (request) => {
     data: siswa,
     select: {
       id_siswa: true,
-      nama_siswa: true,
       no_anggota: true,
+      nama_siswa: true,
       nis: true,
       nisn: true,
       tanggal_lahir: true,
