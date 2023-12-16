@@ -52,5 +52,6 @@ router.get('/api/siswa', siswaController.getSiswaController);
 router.get('/api/siswa/search', siswaController.searchSiswaController);
 router.post('/api/siswa', siswaController.createSiswaController);
 router.get('/api/siswa/:siswaId', siswaController.getSiswaByIdController);
+router.put('/api/siswa/:siswaId', siswaController.updateSiswaController);
 
 export { router };

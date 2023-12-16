@@ -68,10 +68,39 @@ const getSiswaByIdController = async (req, res, next) => {
   }
 };
 
+const updateSiswaController = async (req, res, next) => {
+  try {
+    uploadFile.single('foto_siswa')(req, res, async (error) => {
+      if (error) {
+        next(error);
+      }
+
+      const { siswaId } = req.params;
+      const request = req.body;
+      request.id_siswa = siswaId;
+      request.foto_siswa = req.file.path;
+
+      try {
+        const result = await siswaService.updateSiswaService(request);
+        res.status(200).json({
+          status: 'Success',
+          message: 'Berhasil Mengubah Data Siswa',
+          data: result,
+        });
+      } catch (error) {
+        next(error);
+      }
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 
 export default {
   getSiswaController,
   searchSiswaController,
   createSiswaController,
   getSiswaByIdController,
+  updateSiswaController,
 };
