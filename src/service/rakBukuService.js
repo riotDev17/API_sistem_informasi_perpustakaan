@@ -27,6 +27,7 @@ const searchRakBukuService = async (request) => {
     where: {
       nama_rak_buku: {
         contains: nama_rak_buku,
+        mode: 'insensitive',
       },
     },
     select: {
