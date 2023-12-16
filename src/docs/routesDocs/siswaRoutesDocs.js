@@ -106,3 +106,40 @@
  *
  *
  * */
+
+// ====== GET SISWA BY ID ======
+/**
+ * @openapi
+ * /api/siswa/{siswaId}:
+ *  get:
+ *    tags:
+ *      - Siswa
+ *    summary: Get Siswa By Id
+ *    description: Get Siswa By Id
+ *    parameters:
+ *      - in: path
+ *        name: siswaId
+ *        description: Siswa ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Get Siswa By Id Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Siswa By ID Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Siswa By ID Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Siswa By ID Not Found'
+ *
+ * */
