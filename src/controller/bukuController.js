@@ -84,7 +84,7 @@ const updateBukuController = async (req, res, next) => {
         const result = await bukuService.updateBukuService(request);
         res.status(200).json({
           status: 'Success',
-          message: 'Berhasil Menambahkan Data Buku',
+          message: 'Berhasil Mengupdate Data Buku',
           data: result,
         });
       } catch (error) {
