@@ -4,8 +4,7 @@ const randomNumber = () => {
     number += Math.floor(Math.random() * 10);
   }
 
-  return number;
+  return parseInt(number);
 };
-
 
 export { randomNumber };
