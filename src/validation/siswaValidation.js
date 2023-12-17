@@ -17,15 +17,15 @@ const createSiswaValidation = Joi.object({
 
 const updateSiswaValidation = Joi.object({
   id_siswa: Joi.string().max(100).required(),
-  nama_siswa: Joi.string().max(50).optional(),
+  nama_siswa: Joi.string().max(50).required(),
   nis: Joi.number().required(),
   nisn: Joi.number().required(),
-  tanggal_lahir: Joi.string().max(50).optional(),
-  tempat_lahir: Joi.string().optional(),
-  jenis_kelamin: Joi.string().max(15).optional(),
-  id_agama: Joi.string().optional(),
-  alamat: Joi.string().optional(),
-  id_kelas: Joi.string().optional(),
+  tanggal_lahir: Joi.string().max(50).required(),
+  tempat_lahir: Joi.string().required(),
+  jenis_kelamin: Joi.string().max(15).required(),
+  id_agama: Joi.string().required(),
+  alamat: Joi.string().required(),
+  id_kelas: Joi.string().required(),
   foto_siswa: Joi.string().optional(),
 });
 
