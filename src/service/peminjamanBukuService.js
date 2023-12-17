@@ -96,6 +96,7 @@ const createPeminjamanBukuService = async (request) => {
               nama_kelas: true,
             },
           },
+          foto_siswa: true,
           createdAt: true,
           updatedAt: true,
         },
