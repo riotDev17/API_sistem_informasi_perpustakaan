@@ -57,6 +57,6 @@ router.put('/api/siswa/:siswaId', siswaController.updateSiswaController);
 router.delete('/api/siswa/:siswaId', siswaController.deleteSiswaController);
 
 // PEMINJAMAN BUKU
-router.post('/api/peminjaman-buku', peminjamanBukuController.createPeminjamanBukuController);
+router.post('/api/peminjaman-buku/:siswaId', peminjamanBukuController.createPeminjamanBukuController);
 
 export { router };
