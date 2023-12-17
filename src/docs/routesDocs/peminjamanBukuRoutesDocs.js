@@ -1,11 +1,18 @@
 // ======= CREATE PEMINJAMAN BUKU ======
 /**
  * @openapi
- * /api/peminjaman-buku:
+ * /api/peminjaman-buku/{siswaId}:
  *  post:
  *    tags:
  *      - Peminjaman Buku
  *    summary: Create Peminjaman Buku
+ *    parameters:
+ *      - name: siswaId
+ *        in: path
+ *        required: true
+ *        description: Siswa ID
+ *        schema:
+ *          type: string
  *    requestBody:
  *      required: true
  *      content:

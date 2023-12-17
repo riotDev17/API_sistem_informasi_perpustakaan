@@ -7,14 +7,10 @@
  *      type: object
  *      required:
  *        - id_buku
- *        - id_siswa
  *      properties:
  *        id_buku:
  *          type: string
  *          description: id buku
- *        id_siswa:
- *          type: string
- *          description: id siswa
  *    Peminjaman Buku Success:
  *      type: object
  *      properties:
