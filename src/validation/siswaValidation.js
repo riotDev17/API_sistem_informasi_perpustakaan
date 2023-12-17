@@ -4,8 +4,8 @@ const getSiswaValidation = Joi.string().max(100).required();
 
 const createSiswaValidation = Joi.object({
   nama_siswa: Joi.string().max(50).required(),
-  nis: Joi.string().max(20).required(),
-  nisn: Joi.string().max(20).required(),
+  nis: Joi.number().required(),
+  nisn: Joi.number().required(),
   tanggal_lahir: Joi.string().max(50).required(),
   tempat_lahir: Joi.string().required(),
   jenis_kelamin: Joi.string().max(15).required(),
@@ -18,8 +18,8 @@ const createSiswaValidation = Joi.object({
 const updateSiswaValidation = Joi.object({
   id_siswa: Joi.string().max(100).required(),
   nama_siswa: Joi.string().max(50).optional(),
-  nis: Joi.string().max(20).optional(),
-  nisn: Joi.string().max(20).optional(),
+  nis: Joi.number().required(),
+  nisn: Joi.number().required(),
   tanggal_lahir: Joi.string().max(50).optional(),
   tempat_lahir: Joi.string().optional(),
   jenis_kelamin: Joi.string().max(15).optional(),
