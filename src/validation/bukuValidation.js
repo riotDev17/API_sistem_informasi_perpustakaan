@@ -8,7 +8,7 @@ const createBukuValidation = Joi.object({
   penerbit: Joi.string().max(50).required(),
   tahun_terbit: Joi.string().max(10).required(),
   deskripsi: Joi.string().required(),
-  stok_buku: Joi.string().max(100).required(),
+  stok_buku: Joi.number().required(),
   foto_buku: Joi.string().optional(),
   id_rak_buku: Joi.string().max(100).required(),
 });
@@ -20,7 +20,7 @@ const updateBukuValidation = Joi.object({
   penerbit: Joi.string().max(50).required(),
   tahun_terbit: Joi.string().max(10).required(),
   deskripsi: Joi.string().required(),
-  stok_buku: Joi.string().max(100).required(),
+  stok_buku: Joi.number().required(),
   foto_buku: Joi.string().optional(),
   id_rak_buku: Joi.string().max(100).required(),
 });
