@@ -21,6 +21,12 @@ const createPeminjamanBukuService = async (request) => {
     },
   });
 
+  const siswaExist = await prismaClient.siswa.count({
+    where: {
+      id_siswa: peminjamanBuku.id_siswa,
+    },
+  });
+
   const tanggalPinjam = new Date();
   const tanggalKembali = new Date(tanggalPinjam);
   tanggalKembali.setDate(tanggalKembali.getDate() + 7);
@@ -32,6 +38,10 @@ const createPeminjamanBukuService = async (request) => {
 
   if (peminjamanBukuExist === 1) {
     throw new ResponseError(409, 'Siswa Sudah Meminjam Buku Ini');
+  }
+
+  if (siswaExist !== 1) {
+    throw new ResponseError(404, 'Siswa Tidak Ditemukan');
   }
 
   if (stokBukuExist.stok_buku === 0) {
