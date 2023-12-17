@@ -43,10 +43,10 @@ model Kelas {
 
 model Siswa {
   id_siswa      String       @id @default(uuid())
-  no_anggota    String       @db.VarChar(50)
+  no_anggota    Int          @db.Integer
   nama_siswa    String       @db.VarChar(50)
-  nis           String       @db.VarChar(20)
-  nisn          String       @db.VarChar(20)
+  nis           Int          @db.Integer
+  nisn          Int          @db.Integer
   tanggal_lahir String       @db.VarChar(50)
   tempat_lahir  String       @db.Text
   jenis_kelamin String       @db.VarChar(15)
@@ -79,9 +79,9 @@ model Buku {
   judul_buku   String       @db.VarChar(50)
   pengarang    String       @db.VarChar(50)
   penerbit     String       @db.VarChar(50)
-  tahun_terbit String       @db.VarChar(10)
+  tahun_terbit Int          @db.Integer
   deskripsi    String       @db.Text
-  stok_buku    String       @db.VarChar(100)
+  stok_buku    Int          @db.Integer
   foto_buku    String?      @db.Text
   id_rak_buku  String
   rak_buku     RakBuku      @relation(fields: [id_rak_buku], references: [id_rak_buku])
