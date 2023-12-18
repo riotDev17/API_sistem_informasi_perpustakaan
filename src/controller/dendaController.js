@@ -71,10 +71,24 @@ const updateDendaController = async (req, res, next) => {
   }
 };
 
+const deleteDendaController = async (req, res, next) => {
+  try {
+    const { dendaId } = req.params;
+   await dendaService.deleteDendaService(dendaId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Menghapus Data Denda',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getDendaController,
   searchDendaController,
   createDendaController,
   getDendaByIdController,
   updateDendaController,
+  deleteDendaController,
 };

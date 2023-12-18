@@ -116,10 +116,30 @@ const updateDendaService = async (request) => {
   });
 };
 
+const deleteDendaService = async (dendaId) => {
+  dendaId = await validation(getDendaValidation, dendaId);
+  const dendaExist = await prismaClient.denda.count({
+    where: {
+      id_denda: dendaId,
+    },
+  });
+
+  if (dendaExist !== 1) {
+    throw new ResponseError(404, 'Denda Tidak Ditemukan');
+  }
+
+  return prismaClient.denda.delete({
+    where: {
+      id_denda: dendaId,
+    },
+  });
+};
+
 export default {
   getDendaService,
   searchDendaService,
   createDendaService,
   getDendaByIdService,
   updateDendaService,
+  deleteDendaService,
 };
