@@ -3,6 +3,17 @@ import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
 import { createDendaValidation } from '../validation/dendaValidation.js';
 
+const getDendaService = async () => {
+  return prismaClient.denda.findMany({
+    select: {
+      id_denda: true,
+      nominal: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
 const createDendaService = async (request) => {
   const denda = await validation(createDendaValidation, request);
   const dendaExist = await prismaClient.denda.count({
@@ -27,5 +38,6 @@ const createDendaService = async (request) => {
 };
 
 export default {
+  getDendaService,
   createDendaService,
 };
