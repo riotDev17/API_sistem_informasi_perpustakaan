@@ -41,8 +41,23 @@ const createDendaController = async (req, res, next) => {
   }
 };
 
+const getDendaByIdController = async (req, res, next) => {
+  try {
+    const { dendaId } = req.params;
+    const result = await dendaService.getDendaByIdService(dendaId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Menampilkan Data Denda',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getDendaController,
   searchDendaController,
   createDendaController,
+  getDendaByIdController,
 };

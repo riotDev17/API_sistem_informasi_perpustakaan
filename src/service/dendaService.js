@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createDendaValidation } from '../validation/dendaValidation.js';
+import { createDendaValidation, getDendaValidation } from '../validation/dendaValidation.js';
 
 const getDendaService = async () => {
   return prismaClient.denda.findMany({
@@ -38,7 +38,6 @@ const searchDendaService = async (request) => {
   return denda;
 };
 
-
 const createDendaService = async (request) => {
   const denda = await validation(createDendaValidation, request);
   const dendaExist = await prismaClient.denda.count({
@@ -62,8 +61,30 @@ const createDendaService = async (request) => {
   });
 };
 
+const getDendaByIdService = async (dendaId) => {
+  dendaId = await validation(getDendaValidation, dendaId);
+  const denda = await prismaClient.denda.findFirst({
+    where: {
+      id_denda: dendaId,
+    },
+    select: {
+      id_denda: true,
+      nominal: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!denda) {
+    throw new ResponseError(404, 'Denda Tidak Ditemukan');
+  }
+
+  return denda;
+};
+
 export default {
   getDendaService,
   searchDendaService,
   createDendaService,
+  getDendaByIdService,
 };
