@@ -3,6 +3,73 @@ import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
 import { createPeminjamanBukuValidation } from '../validation/peminjamanBukuValidation.js';
 
+const getPeminjamanBukuService = async () => {
+  return prismaClient.peminjaman.findMany({
+    select: {
+      id_peminjaman: true,
+      buku: {
+        select: {
+          id_buku: true,
+          judul_buku: true,
+          pengarang: true,
+          penerbit: true,
+          tahun_terbit: true,
+          deskripsi: true,
+          stok_buku: true,
+          foto_buku: true,
+          rak_buku: {
+            select: {
+              id_rak_buku: true,
+              nama_rak_buku: true,
+            },
+          },
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      siswa: {
+        select: {
+          id_siswa: true,
+          no_anggota: true,
+          nama_siswa: true,
+          nis: true,
+          nisn: true,
+          tanggal_lahir: true,
+          tempat_lahir: true,
+          jenis_kelamin: true,
+          agama: {
+            select: {
+              id_agama: true,
+              nama_agama: true,
+            },
+          },
+          alamat: true,
+          kelas: {
+            select: {
+              id_kelas: true,
+              nama_kelas: true,
+            },
+          },
+          foto_siswa: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      denda: {
+        select: {
+          id_denda: true,
+          nominal: true,
+        },
+      },
+      status: true,
+      tanggal_pinjam: true,
+      tanggal_kembali: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
 const createPeminjamanBukuService = async (request) => {
   const peminjamanBuku = await validation(createPeminjamanBukuValidation, request);
   const stokBukuExist = await prismaClient.buku.findUnique({
@@ -27,13 +94,36 @@ const createPeminjamanBukuService = async (request) => {
     },
   });
 
+  // DENDA , TANGGAL PINJAM , TANGGAL KEMBALI
   const tanggalPinjam = new Date();
   const tanggalKembali = new Date(tanggalPinjam);
   tanggalKembali.setDate(tanggalKembali.getDate() + 7);
 
+  let status = '';
+  let dendaId = '';
+
+  if (tanggalPinjam > tanggalKembali) {
+    status = 'Terlambat';
+
+    const dataDenda = await prismaClient.denda.findFirst({
+      where: {
+        id_denda: peminjamanBuku.id_denda,
+      },
+    });
+
+    if (dataDenda) {
+      dendaId = dataDenda.id_denda;
+    }
+  } else {
+    status = 'Pinjam';
+    dendaId = null;
+  }
+
   const dataPeminjamanBuku = {
     ...peminjamanBuku,
     tanggal_kembali: tanggalKembali,
+    status: status,
+    id_denda: dendaId,
   };
 
   if (peminjamanBukuExist === 1) {
@@ -46,20 +136,9 @@ const createPeminjamanBukuService = async (request) => {
 
   if (stokBukuExist.stok_buku === 0) {
     throw new ResponseError(409, 'Stok Buku Habis');
-  } else {
-    await prismaClient.buku.update({
-      where: {
-        id_buku: peminjamanBuku.id_buku,
-      },
-      data: {
-        stok_buku: {
-          decrement: 1,
-        },
-      },
-    });
   }
 
-  return prismaClient.peminjaman.create({
+  const peminjaman = prismaClient.peminjaman.create({
     data: dataPeminjamanBuku,
     select: {
       id_peminjaman: true,
@@ -111,6 +190,13 @@ const createPeminjamanBukuService = async (request) => {
           updatedAt: true,
         },
       },
+      denda: {
+        select: {
+          id_denda: true,
+          nominal: true,
+        },
+      },
+      status: true,
       tanggal_pinjam: true,
       tanggal_kembali: true,
       createdAt: true,
@@ -118,8 +204,108 @@ const createPeminjamanBukuService = async (request) => {
     },
   });
 
+  if (peminjaman) {
+    await prismaClient.buku.update({
+      where: {
+        id_buku: peminjamanBuku.id_buku,
+      },
+      data: {
+        stok_buku: {
+          decrement: 1,
+        },
+      },
+    });
+  }
+
+  return peminjaman;
+};
+
+const searchPeminjamanBukuService = async (request) => {
+  const { no_anggota } = request;
+  const noAnggotaInt = parseInt(no_anggota);
+  const peminjaman = prismaClient.peminjaman.findFirst({
+    where: {
+      siswa: {
+        no_anggota: {
+          equals: noAnggotaInt,
+        },
+      },
+    },
+    select: {
+      id_peminjaman: true,
+      buku: {
+        select: {
+          id_buku: true,
+          judul_buku: true,
+          pengarang: true,
+          penerbit: true,
+          tahun_terbit: true,
+          deskripsi: true,
+          stok_buku: true,
+          foto_buku: true,
+          rak_buku: {
+            select: {
+              id_rak_buku: true,
+              nama_rak_buku: true,
+            },
+          },
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      siswa: {
+        select: {
+          id_siswa: true,
+          no_anggota: true,
+          nama_siswa: true,
+          nis: true,
+          nisn: true,
+          tanggal_lahir: true,
+          tempat_lahir: true,
+          jenis_kelamin: true,
+          agama: {
+            select: {
+              id_agama: true,
+              nama_agama: true,
+            },
+          },
+          alamat: true,
+          kelas: {
+            select: {
+              id_kelas: true,
+              nama_kelas: true,
+            },
+          },
+          foto_siswa: true,
+          createdAt: true,
+          updatedAt: true,
+        },
+      },
+      denda: {
+        select: {
+          id_denda: true,
+          nominal: true,
+        },
+      },
+      status: true,
+      tanggal_pinjam: true,
+      tanggal_kembali: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!peminjaman) {
+    throw new ResponseError(404, 'No Anggota Tidak Ditemukan');
+  }
+
+  return peminjaman;
 };
 
 export default {
+  getPeminjamanBukuService,
   createPeminjamanBukuService,
+  searchPeminjamanBukuService,
 };
+
+

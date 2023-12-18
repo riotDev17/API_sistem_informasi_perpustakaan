@@ -58,7 +58,9 @@ router.put('/api/siswa/:siswaId', siswaController.updateSiswaController);
 router.delete('/api/siswa/:siswaId', siswaController.deleteSiswaController);
 
 // PEMINJAMAN BUKU
+router.get('/api/peminjaman-buku', peminjamanBukuController.getPeminjamanBukuController);
 router.post('/api/peminjaman-buku/:siswaId', peminjamanBukuController.createPeminjamanBukuController);
+router.get('/api/peminjaman-buku/search' , peminjamanBukuController.searchPeminjamanBukuController);
 
 // DENDA
 router.get('/api/denda', dendaController.getDendaController);
