@@ -5,8 +5,9 @@ import kelasController from '../controller/kelasController.js';
 import rakBukuController from '../controller/rakBukuController.js';
 import bukuController from '../controller/bukuController.js';
 import siswaController from '../controller/siswaController.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
 import peminjamanBukuController from '../controller/peminjamanBukuController.js';
+import dendaController from '../controller/dendaController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = new express.Router();
 router.use(authMiddleware);
@@ -58,5 +59,8 @@ router.delete('/api/siswa/:siswaId', siswaController.deleteSiswaController);
 
 // PEMINJAMAN BUKU
 router.post('/api/peminjaman-buku/:siswaId', peminjamanBukuController.createPeminjamanBukuController);
+
+// DENDA
+router.post('/api/denda', dendaController.createDendaController);
 
 export { router };
