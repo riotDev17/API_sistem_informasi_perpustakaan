@@ -1,3 +1,27 @@
+// ======= GET PEMINJAMAN BUKU ======
+/**
+ * @openapi
+ * /api/peminjaman-buku:
+ *  get:
+ *    tags:
+ *      - Peminjaman Buku
+ *    summary: Get Peminjaman Buku
+ *    responses:
+ *      200:
+ *        description: Get Peminjaman Buku Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Peminjaman Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Get Peminjaman Buku Unauthorized'
+ *
+ * */
+
 // ======= CREATE PEMINJAMAN BUKU ======
 /**
  * @openapi
@@ -45,5 +69,42 @@
  *            schema:
  *              $ref: '#/components/schemas/Peminjaman Buku Conflict'
  *
+ *
+ * */
+
+// ======= SEARCH PEMINJAMAN BUKU ======
+/**
+ * @openapi
+ * /api/peminjaman-buku/search:
+ *  get:
+ *    tags:
+ *      - Peminjaman Buku
+ *    summary: Search Peminjaman Buku
+ *    parameters:
+ *      - name: no_anggota
+ *        in: query
+ *        required: true
+ *        description: search peminjaman buku
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Search Peminjaman Buku Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Peminjaman Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Peminjaman Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Search Peminjaman Buku Not Found'
  *
  * */
