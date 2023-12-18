@@ -65,5 +65,6 @@ router.get('/api/denda', dendaController.getDendaController);
 router.get('/api/denda/search', dendaController.searchDendaController);
 router.post('/api/denda', dendaController.createDendaController);
 router.get('/api/denda/:dendaId', dendaController.getDendaByIdController);
+router.put('/api/denda/:dendaId', dendaController.updateDendaController);
 
 export { router };

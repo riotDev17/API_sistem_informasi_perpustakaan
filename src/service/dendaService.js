@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createDendaValidation, getDendaValidation } from '../validation/dendaValidation.js';
+import { createDendaValidation, getDendaValidation, updateDendaValidation } from '../validation/dendaValidation.js';
 
 const getDendaService = async () => {
   return prismaClient.denda.findMany({
@@ -82,9 +82,44 @@ const getDendaByIdService = async (dendaId) => {
   return denda;
 };
 
+const updateDendaService = async (request) => {
+  const denda = await validation(updateDendaValidation, request);
+  const dendaExist = await prismaClient.denda.count({
+    where: {
+      id_denda: denda.id_denda,
+    },
+  });
+
+  const nominalDendaExist = await prismaClient.denda.count({
+    where: {
+      nominal: denda.nominal,
+    },
+  });
+
+  if (dendaExist !== 1) {
+    throw new ResponseError(404, 'Denda Tidak Ditemukan');
+  } else if (nominalDendaExist === 1) {
+    throw new ResponseError(409, 'Nominal Sudah Ada');
+  }
+
+  return prismaClient.denda.update({
+    where: {
+      id_denda: denda.id_denda,
+    },
+    data: denda,
+    select: {
+      id_denda: true,
+      nominal: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+};
+
 export default {
   getDendaService,
   searchDendaService,
   createDendaService,
   getDendaByIdService,
+  updateDendaService,
 };
