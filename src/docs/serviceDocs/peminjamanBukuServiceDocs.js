@@ -500,3 +500,41 @@
  *          default: Message Not Found
  * */
 
+// ======= DELETE PEMINJAMAN BUKU ======
+/**
+ * @openapi
+ * components:
+ *  schemas:
+ *    Delete Peminjaman Buku Success:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          description: status response
+ *        message:
+ *          type: string
+ *          description: message response
+ *    Delete Peminjaman Buku Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: message
+ *    Delete Peminjaman Buku Not Found:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Not Found
+ *          description: Status
+ *        message:
+ *          type: string
+ *          default: Message Not Found
+ *          description: message
+ * */
+

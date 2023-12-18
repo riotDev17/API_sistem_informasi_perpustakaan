@@ -108,3 +108,40 @@
  *              $ref: '#/components/schemas/Search Peminjaman Buku Not Found'
  *
  * */
+
+// ======= DELETE PEMINJAMAN BUKU ======
+/**
+ * @openapi
+ * /api/peminjaman-buku/{peminjamanBukuId}:
+ *  delete:
+ *    tags:
+ *      - Peminjaman Buku
+ *    summary: Delete Peminjaman Buku
+ *    parameters:
+ *      - name: peminjamanBukuId
+ *        in: path
+ *        required: true
+ *        description: Peminjaman Buku ID
+ *        schema:
+ *          type: string
+ *    responses:
+ *      200:
+ *        description: Delete Peminjaman Buku Success
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Peminjaman Buku Success'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Peminjaman Buku Unauthorized'
+ *      404:
+ *        description: Not Found
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Delete Peminjaman Buku Not Found'
+ *
+ * */
