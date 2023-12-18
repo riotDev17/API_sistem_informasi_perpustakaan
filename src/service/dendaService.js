@@ -14,6 +14,31 @@ const getDendaService = async () => {
   });
 };
 
+const searchDendaService = async (request) => {
+  const { nominal } = request;
+  const nominalInt = parseInt(nominal);
+  const denda = await prismaClient.denda.findFirst({
+    where: {
+      nominal: {
+        equals: nominalInt,
+      },
+    },
+    select: {
+      id_denda: true,
+      nominal: true,
+      createdAt: true,
+      updatedAt: true,
+    },
+  });
+
+  if (!denda) {
+    throw new ResponseError(404, 'Nominal Tidak Ditemukan');
+  }
+
+  return denda;
+};
+
+
 const createDendaService = async (request) => {
   const denda = await validation(createDendaValidation, request);
   const dendaExist = await prismaClient.denda.count({
@@ -39,5 +64,6 @@ const createDendaService = async (request) => {
 
 export default {
   getDendaService,
+  searchDendaService,
   createDendaService,
 };

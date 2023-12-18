@@ -13,6 +13,20 @@ const getDendaController = async (req, res, next) => {
   }
 };
 
+const searchDendaController = async (req, res, next) => {
+  try {
+    const request = req.query;
+    const result = await dendaService.searchDendaService(request);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mencari Data Denda',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const createDendaController = async (req, res, next) => {
   try {
     const request = req.body;
@@ -29,5 +43,6 @@ const createDendaController = async (req, res, next) => {
 
 export default {
   getDendaController,
+  searchDendaController,
   createDendaController,
 };

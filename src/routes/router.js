@@ -62,6 +62,7 @@ router.post('/api/peminjaman-buku/:siswaId', peminjamanBukuController.createPemi
 
 // DENDA
 router.get('/api/denda', dendaController.getDendaController);
+router.get('/api/denda/search', dendaController.searchDendaController);
 router.post('/api/denda', dendaController.createDendaController);
 
 export { router };
