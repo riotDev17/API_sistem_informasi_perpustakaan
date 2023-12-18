@@ -302,11 +302,11 @@ const searchPeminjamanBukuService = async (request) => {
   return peminjaman;
 };
 
-const deletePeminjamanBukuService = async (peminjamanId) => {
-  peminjamanId = await validation(getPeminjamanBukuValidation, peminjamanId);
+const deletePeminjamanBukuService = async (peminjamanBukuId) => {
+  peminjamanBukuId = await validation(getPeminjamanBukuValidation, peminjamanBukuId);
   const peminjaman = await prismaClient.peminjaman.findUnique({
     where: {
-      id_peminjaman: peminjamanId,
+      id_peminjaman: peminjamanBukuId,
     },
   });
 
@@ -316,7 +316,7 @@ const deletePeminjamanBukuService = async (peminjamanId) => {
 
   const deletedPeminjaman = await prismaClient.peminjaman.delete({
     where: {
-      id_peminjaman: peminjamanId,
+      id_peminjaman: peminjamanBukuId,
     },
   });
 

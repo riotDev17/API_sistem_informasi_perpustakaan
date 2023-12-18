@@ -61,7 +61,7 @@ router.delete('/api/siswa/:siswaId', siswaController.deleteSiswaController);
 router.get('/api/peminjaman-buku', peminjamanBukuController.getPeminjamanBukuController);
 router.post('/api/peminjaman-buku/:siswaId', peminjamanBukuController.createPeminjamanBukuController);
 router.get('/api/peminjaman-buku/search', peminjamanBukuController.searchPeminjamanBukuController);
-router.delete('/api/peminjaman-buku/:peminjamanId', peminjamanBukuController.deletePeminjamanBukuController);
+router.delete('/api/peminjaman-buku/:peminjamanBukuId', peminjamanBukuController.deletePeminjamanBukuController);
 
 // DENDA
 router.get('/api/denda', dendaController.getDendaController);

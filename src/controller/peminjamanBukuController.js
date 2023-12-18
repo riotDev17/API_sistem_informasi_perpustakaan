@@ -45,8 +45,8 @@ const searchPeminjamanBukuController = async (req, res, next) => {
 
 const deletePeminjamanBukuController = async (req, res, next) => {
   try {
-    const { peminjamanId } = req.params;
-    await peminjamanBukuService.deletePeminjamanBukuService(peminjamanId);
+    const { peminjamanBukuId } = req.params;
+    await peminjamanBukuService.deletePeminjamanBukuService(peminjamanBukuId);
     res.status(200).json({
       status: 'Success',
       message: 'Berhasil Menghapus Data Peminjaman Buku',
