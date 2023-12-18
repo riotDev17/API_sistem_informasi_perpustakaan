@@ -1,7 +1,7 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createPeminjamanBukuValidation } from '../validation/peminjamanBukuValidation.js';
+import { createPeminjamanBukuValidation, getPeminjamanBukuValidation } from '../validation/peminjamanBukuValidation.js';
 
 const getPeminjamanBukuService = async () => {
   return prismaClient.peminjaman.findMany({
@@ -302,10 +302,58 @@ const searchPeminjamanBukuService = async (request) => {
   return peminjaman;
 };
 
+const deletePeminjamanBukuService = async (peminjamanId) => {
+  peminjamanId = await validation(getPeminjamanBukuValidation, peminjamanId);
+  const peminjaman = await prismaClient.peminjaman.findUnique({
+    where: {
+      id_peminjaman: peminjamanId,
+    },
+  });
+
+  if (!peminjaman) {
+    throw new ResponseError(404, 'Peminjaman Tidak Ditemukan');
+  }
+
+  const deletedPeminjaman = await prismaClient.peminjaman.delete({
+    where: {
+      id_peminjaman: peminjamanId,
+    },
+  });
+
+  if (deletedPeminjaman) {
+    // Tambahkan informasi peminjaman ke dalam tabel riwayat
+    let status = 'Peminjaman Selesai'
+    await prismaClient.riwayat.create({
+      data: {
+        id_siswa: peminjaman.id_siswa,
+        id_buku: peminjaman.id_buku,
+        tanggal_pinjam: peminjaman.tanggal_pinjam,
+        tanggal_kembali: peminjaman.tanggal_kembali,
+        status: status
+      },
+    });
+
+    // Update stok buku setelah peminjaman dihapus
+    await prismaClient.buku.update({
+      where: {
+        id_buku: deletedPeminjaman.id_buku,
+      },
+      data: {
+        stok_buku: {
+          increment: 1,
+        },
+      },
+    });
+  }
+
+  return deletedPeminjaman;
+};
+
 export default {
   getPeminjamanBukuService,
   createPeminjamanBukuService,
   searchPeminjamanBukuService,
+  deletePeminjamanBukuService,
 };
 
 

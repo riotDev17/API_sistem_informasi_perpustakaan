@@ -41,11 +41,24 @@ const searchPeminjamanBukuController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-
 };
+
+const deletePeminjamanBukuController = async (req, res, next) => {
+  try {
+    const { peminjamanId } = req.params;
+    await peminjamanBukuService.deletePeminjamanBukuService(peminjamanId);
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Menghapus Data Peminjaman Buku',
+    });
+  } catch (error) {
+    next(error);
+  }
+}
 
 export default {
   getPeminjamanBukuController,
   createPeminjamanBukuController,
   searchPeminjamanBukuController,
+  deletePeminjamanBukuController,
 };
