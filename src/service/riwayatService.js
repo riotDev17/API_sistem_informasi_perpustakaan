@@ -1,4 +1,5 @@
 import { prismaClient } from '../app/database.js';
+import { ResponseError } from '../error/responseError.js';
 
 const getRiwayatService = async () => {
   return prismaClient.riwayat.findMany({
@@ -53,6 +54,8 @@ const getRiwayatService = async () => {
         },
       },
       status: true,
+      tanggal_pinjam: true,
+      tanggal_kembali: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -61,9 +64,11 @@ const getRiwayatService = async () => {
 
 const searchRiwayatService = async (request) => {
   const { tanggal_pinjam, tanggal_kembali } = request;
-  return prismaClient.riwayat.findMany({
-    where: {
-      OR: [
+  let whereCondition = {};
+
+  if (tanggal_pinjam && tanggal_kembali) {
+    whereCondition = {
+      AND: [
         {
           tanggal_pinjam: {
             gte: tanggal_pinjam,
@@ -75,7 +80,23 @@ const searchRiwayatService = async (request) => {
           },
         },
       ],
-    },
+    };
+  } else if (tanggal_pinjam) {
+    whereCondition = {
+      tanggal_pinjam: {
+        gte: tanggal_pinjam,
+      },
+    };
+  } else if (tanggal_kembali) {
+    whereCondition = {
+      tanggal_kembali: {
+        lte: tanggal_kembali,
+      },
+    };
+  }
+
+  const riwayat = await prismaClient.riwayat.findMany({
+    where: whereCondition,
     select: {
       id_riwayat: true,
       buku: {
@@ -127,10 +148,18 @@ const searchRiwayatService = async (request) => {
         },
       },
       status: true,
+      tanggal_pinjam: true,
+      tanggal_kembali: true,
       createdAt: true,
       updatedAt: true,
     },
   });
+
+  if (riwayat.length === 0) {
+    throw new ResponseError(404, 'Riwayat Tidak Ditemukan');
+  }
+
+  return riwayat;
 };
 
 export default {
