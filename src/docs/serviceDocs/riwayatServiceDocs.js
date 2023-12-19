@@ -124,6 +124,12 @@
  *              status:
  *                type: string
  *                description: status
+ *              tanggal_pinjam:
+ *                type: string
+ *                description: tanggal pinjam
+ *              tanggal_kembali:
+ *                type: string
+ *                description: tanggal kembali
  *              createdAt:
  *                type: string
  *                description: waktu dibuat
