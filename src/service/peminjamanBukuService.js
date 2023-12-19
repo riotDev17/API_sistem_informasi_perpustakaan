@@ -324,6 +324,7 @@ const deletePeminjamanBukuService = async (peminjamanBukuId) => {
   if (deletedPeminjaman) {
     // Tambahkan informasi peminjaman ke dalam tabel riwayat
     let status = 'Peminjaman Selesai';
+
     await prismaClient.riwayat.create({
       data: {
         id_siswa: peminjaman.id_siswa,
