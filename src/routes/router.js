@@ -8,6 +8,7 @@ import siswaController from '../controller/siswaController.js';
 import peminjamanBukuController from '../controller/peminjamanBukuController.js';
 import dendaController from '../controller/dendaController.js';
 import { authMiddleware } from '../middleware/authMiddleware.js';
+import riwayatController from '../controller/riwayatController.js';
 
 const router = new express.Router();
 router.use(authMiddleware);
@@ -70,5 +71,8 @@ router.post('/api/denda', dendaController.createDendaController);
 router.get('/api/denda/:dendaId', dendaController.getDendaByIdController);
 router.put('/api/denda/:dendaId', dendaController.updateDendaController);
 router.delete('/api/denda/:dendaId', dendaController.deleteDendaController);
+
+// RIWAYAT
+router.get('/api/riwayat', riwayatController.getRiwayatController);
 
 export { router };
