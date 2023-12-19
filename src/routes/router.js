@@ -74,5 +74,6 @@ router.delete('/api/denda/:dendaId', dendaController.deleteDendaController);
 
 // RIWAYAT
 router.get('/api/riwayat', riwayatController.getRiwayatController);
+router.get('/api/riwayat/search', riwayatController.searchRiwayatController);
 
 export { router };

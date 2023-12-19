@@ -13,6 +13,21 @@ const getRiwayatController = async (req, res, next) => {
   }
 };
 
+const searchRiwayatController = async (req, res, next) => {
+  try {
+    const request = req.query;
+    const result = await riwayatService.searchRiwayatService(request);
+    res.status(200).json({
+      status: 'success',
+      message: 'Berhasil Mendapatkan Data Riwayat',
+      data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getRiwayatController,
+  searchRiwayatController,
 };
