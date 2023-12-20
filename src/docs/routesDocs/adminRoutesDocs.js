@@ -33,7 +33,6 @@
  *              $ref: '#/components/schemas/Register Admin Conflict'
  */
 
-
 // ======== ADMIN LOGIN =========
 /**
  * @openapi
@@ -61,6 +60,12 @@
  *          application/json:
  *            schema:
  *              $ref: '#/components/schemas/Login Admin Bad Request'
+ *      401:
+ *        description: Unauthorized
+ *        content:
+ *          application/json:
+ *            schema:
+ *              $ref: '#/components/schemas/Login Admin Unauthorized'
  *
  * */
 

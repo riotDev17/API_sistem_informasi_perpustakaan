@@ -115,6 +115,17 @@
  *          type: string
  *          default: Message Bad Request
  *          description: Message
+ *    Login Admin Unauthorized:
+ *      type: object
+ *      properties:
+ *        status:
+ *          type: string
+ *          default: Unauthorized
+ *          description: Unauthorized
+ *        message:
+ *          type: string
+ *          default: Message Unauthorized
+ *          description: Message Unauthorized
  * */
 
 
