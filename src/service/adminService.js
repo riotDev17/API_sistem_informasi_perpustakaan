@@ -48,15 +48,13 @@ const loginAdminService = async (request) => {
   });
 
   if (!adminData) {
-    throw new ResponseError(400, 'Username atau password salah');
-  } else if (adminData.username !== admin.username) {
-    throw new ResponseError(400, 'Username atau password salah');
+    throw new ResponseError(401, 'Username atau password salah');
   }
 
   const isPasswordMatch = await bcrypt.compare(admin.password, adminData.password);
 
   if (!isPasswordMatch) {
-    throw new ResponseError(400, 'Username atau password salah');
+    throw new ResponseError(401, 'Username atau password salah');
   } else if (isPasswordMatch) {
     const payload = {
       id_admin: adminData.id_admin,
