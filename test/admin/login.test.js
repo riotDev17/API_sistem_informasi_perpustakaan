@@ -43,6 +43,16 @@ describe('POST /auth/admin/login', () => {
     expect(result.body.message).toBeDefined();
   });
 
+  it('should return 400 when login admin when password less 8 character', async () => {
+    const result = await supertest(app).post('/auth/admin/login').send({
+      username: 'admin',
+      password: 'admin',
+    });
+
+    expect(result.status).toEqual(400);
+    expect(result.body.message).toBeDefined();
+  });
+
   it('should return 401 when username is wrong', async () => {
     const result = await supertest(app).post('/auth/admin/login').send({
       username: 'admin123',
