@@ -105,7 +105,10 @@ const updateAdminService = async (request) => {
 
   if (adminExist !== 1) {
     throw new ResponseError(404, 'Admin tidak ditemukan');
-  } else if (usernameAdminExist === 1) {
+  }
+
+
+  if (usernameAdminExist === 1) {
     throw new ResponseError(409, 'Username sudah terdaftar');
   }
 

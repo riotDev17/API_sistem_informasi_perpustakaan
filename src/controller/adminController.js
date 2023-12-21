@@ -1,5 +1,7 @@
 import uploadFile from '../utils/multer.js';
 import adminService from '../service/adminService.js';
+import multer from 'multer';
+import { ResponseError } from '../error/responseError.js';
 
 const registerAdminController = async (req, res, next) => {
   try {
@@ -9,8 +11,8 @@ const registerAdminController = async (req, res, next) => {
       message: 'Berhasil Register',
       data: result,
     });
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -24,8 +26,8 @@ const loginAdminController = async (req, res, next) => {
         token: result,
       },
     });
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -38,22 +40,30 @@ const getAdminController = async (req, res, next) => {
       message: 'Berhasil Mendapatkan Data Admin',
       data: result,
     });
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 };
 
 const updateAdminController = async (req, res, next) => {
   try {
     uploadFile.single('foto_admin')(req, res, async (error) => {
-      if (error) {
+      if (error instanceof multer.MulterError) {
+        res.status(400).json({
+          status: 'Error',
+          message: error.message,
+        });
+      } else if (error) {
         next(error);
       }
 
       const { adminId } = req.params;
       const request = req.body;
       request.id_admin = adminId;
-      request.foto_admin = req.file.path;
+
+      if (req.file) {
+        request.foto_admin = req.file.path;
+      }
 
       try {
         const result = await adminService.updateAdminService(request);
@@ -71,7 +81,6 @@ const updateAdminController = async (req, res, next) => {
   }
 };
 
-
 const logoutAdminController = async (req, res, next) => {
   try {
     const username = req.admin.username;
@@ -80,8 +89,8 @@ const logoutAdminController = async (req, res, next) => {
       status: 'success',
       message: 'Berhasil logout',
     });
-  } catch (e) {
-    next(e);
+  } catch (error) {
+    next(error);
   }
 };
 
