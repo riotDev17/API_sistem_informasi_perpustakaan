@@ -1,5 +1,6 @@
 import uploadFile from '../utils/multer.js';
 import siswaService from '../service/siswaService.js';
+import multer from 'multer';
 
 const getSiswaController = async (req, res, next) => {
   try {
@@ -31,12 +32,19 @@ const searchSiswaController = async (req, res, next) => {
 const createSiswaController = async (req, res, next) => {
   try {
     uploadFile.single('foto_siswa')(req, res, async (error) => {
-      if (error) {
+      if (error instanceof multer.MulterError) {
+        res.status(400).json({
+          status: 'Error',
+          message: error.message,
+        });
+      } else if (error) {
         next(error);
       }
 
       const request = req.body;
-      request.foto_siswa = req.file.path;
+      if (req.file) {
+        request.foto_siswa = req.file.path;
+      }
 
       try {
         const result = await siswaService.createSiswaService(request);
@@ -71,14 +79,22 @@ const getSiswaByIdController = async (req, res, next) => {
 const updateSiswaController = async (req, res, next) => {
   try {
     uploadFile.single('foto_siswa')(req, res, async (error) => {
-      if (error) {
+      if (error instanceof multer.MulterError) {
+        res.status(400).json({
+          status: 'Error',
+          message: error.message,
+        });
+      } else if (error) {
         next(error);
       }
 
       const { siswaId } = req.params;
       const request = req.body;
       request.id_siswa = siswaId;
-      request.foto_siswa = req.file.path;
+
+      if (req.file) {
+        request.foto_siswa = req.file.path;
+      }
 
       try {
         const result = await siswaService.updateSiswaService(request);
