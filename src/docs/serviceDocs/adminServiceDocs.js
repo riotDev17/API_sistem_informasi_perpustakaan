@@ -186,7 +186,6 @@
  *      type: object
  *      required:
  *        - username
- *        - foto_admin
  *      properties:
  *        username:
  *          type: string
