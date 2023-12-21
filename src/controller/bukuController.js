@@ -80,14 +80,22 @@ const getBukuByIdController = async (req, res, next) => {
 const updateBukuController = async (req, res, next) => {
   try {
     uploadFile.single('foto_buku')(req, res, async (error) => {
-      if (error) {
+      if (error instanceof multer.MulterError) {
+        res.status(400).json({
+          status: 'Error',
+          message: error.message,
+        });
+      } else if (error) {
         next(error);
       }
 
       const { bukuId } = req.params;
       const request = req.body;
       request.id_buku = bukuId;
-      request.foto_buku = req.file.path;
+
+      if (req.file) {
+        request.foto_buku = req.file.path;
+      }
 
       try {
         const result = await bukuService.updateBukuService(request);
