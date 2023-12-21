@@ -224,7 +224,7 @@ const createPeminjamanBukuService = async (request) => {
 const searchPeminjamanBukuService = async (request) => {
   const { no_anggota } = request;
   const noAnggotaInt = parseInt(no_anggota);
-  const peminjaman = prismaClient.peminjaman.findFirst({
+  const peminjaman = await prismaClient.peminjaman.findFirst({
     where: {
       siswa: {
         no_anggota: {
@@ -297,7 +297,7 @@ const searchPeminjamanBukuService = async (request) => {
   });
 
   if (!peminjaman) {
-    throw new ResponseError(404, 'No Anggota Tidak Ditemukan');
+    throw new ResponseError(404, 'Peminjaman Tidak Ditemukan');
   }
 
   return peminjaman;
