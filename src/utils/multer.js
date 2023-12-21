@@ -13,7 +13,7 @@ const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
     cb(null, true);
   } else {
-    cb(null, false);
+    cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'File Harus Bertipe png, jpg, atau jpeg'));
   }
 };
 
