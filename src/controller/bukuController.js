@@ -1,5 +1,6 @@
 import uploadFile from '../utils/multer.js';
 import bukuService from '../service/bukuService.js';
+import multer from 'multer';
 
 const getBukuController = async (req, res, next) => {
   try {
@@ -31,12 +32,20 @@ const searchBukuController = async (req, res, next) => {
 const createBukuController = async (req, res, next) => {
   try {
     uploadFile.single('foto_buku')(req, res, async (error) => {
-      if (error) {
+      if (error instanceof multer.MulterError) {
+        res.status(400).json({
+          status: 'Error',
+          message: error.message,
+        });
+      } else if (error) {
         next(error);
       }
 
       const buku = req.body;
-      buku.foto_buku = req.file.path;
+
+      if (req.file) {
+        buku.foto_buku = req.file.path;
+      }
 
       try {
         const result = await bukuService.createBukuService(buku);
