@@ -40,23 +40,30 @@ const getSiswaService = async () => {
 
 const searchSiswaService = async (request) => {
   const { nama_siswa, no_anggota } = request;
-  const siswa = await prismaClient.siswa.findMany({
-    where: {
-      OR: [
-        {
-          nama_siswa: {
-            contains: nama_siswa,
-            mode: 'insensitive',
-          },
-        },
-        {
-          no_anggota: {
-            contains: no_anggota,
-            mode: 'insensitive',
-          },
-        },
-      ],
-    },
+  let whereCondition = {};
+
+  if (nama_siswa) {
+    whereCondition = {
+      ...whereCondition,
+      nama_siswa: {
+        contains: nama_siswa,
+        mode: 'insensitive',
+      },
+    };
+  }
+
+  if (no_anggota) {
+    const noAnggotaInt = parseInt(no_anggota);
+    whereCondition = {
+      ...whereCondition,
+      no_anggota: {
+        equals: noAnggotaInt,
+      },
+    };
+  }
+
+  const siswa = await prismaClient.siswa.findFirst({
+    where: whereCondition,
     select: {
       id_siswa: true,
       no_anggota: true,
@@ -88,7 +95,7 @@ const searchSiswaService = async (request) => {
     },
   });
 
-  if (siswa.length === 0) {
+  if (!siswa) {
     throw new ResponseError(404, 'Siswa tidak ditemukan');
   }
 
