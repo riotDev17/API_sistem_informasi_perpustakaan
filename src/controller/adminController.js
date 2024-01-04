@@ -22,7 +22,7 @@ const loginAdminController = async (req, res, next) => {
     res.status(200).json({
       status: 'Success',
       message: 'Berhasil Login',
-      data: result
+      data: result,
     });
   } catch (error) {
     next(error);
