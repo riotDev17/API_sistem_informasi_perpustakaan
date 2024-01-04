@@ -16,7 +16,7 @@ const fileFilter = (req, file, cb) => {
   } else {
     // cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'File Harus Bertipe png, jpg, atau jpeg'));
     cb(null, false);
-    return throw new ResponseError(404, 'File Harus Bertipe png, jpg, atau jpeg');
+    throw new ResponseError(404, 'File Harus Bertipe png, jpg, atau jpeg');
   }
 };
 
