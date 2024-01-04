@@ -1,4 +1,5 @@
 import multer from 'multer';
+import { ResponseError } from '../error/responseError.js';
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -13,7 +14,9 @@ const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
     cb(null, true);
   } else {
-    cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'File Harus Bertipe png, jpg, atau jpeg'));
+    // cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'File Harus Bertipe png, jpg, atau jpeg'));
+    cb(null, false);
+    return throw new ResponseError(404, 'File Harus Bertipe png, jpg, atau jpeg');
   }
 };
 
