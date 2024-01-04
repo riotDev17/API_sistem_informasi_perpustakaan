@@ -10,7 +10,6 @@ import {
   registerAdminValidation,
   updateAdminValidation,
 } from '../validation/adminValidation.js';
-import uploadFile from '../utils/multer.js';
 
 
 const registerAdminService = async (request) => {
@@ -63,7 +62,12 @@ const loginAdminService = async (request) => {
 
     const secretKey = process.env.SECRET_KEY;
     const tokenExpiresIn = 60 * 60 * 24;
-    return jwt.sign(payload, secretKey, { expiresIn: tokenExpiresIn });
+    const token = jwt.sign(payload, secretKey, { expiresIn: tokenExpiresIn });
+
+    return {
+      username: adminData.username,
+      token: token,
+    };
   }
 };
 
