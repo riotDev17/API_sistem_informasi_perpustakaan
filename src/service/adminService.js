@@ -101,19 +101,8 @@ const updateAdminService = async (request) => {
     },
   });
 
-  const usernameAdminExist = await prismaClient.admin.count({
-    where: {
-      username: admin.username,
-    },
-  });
-
   if (adminExist !== 1) {
     throw new ResponseError(404, 'Admin tidak ditemukan');
-  }
-
-
-  if (usernameAdminExist === 1) {
-    throw new ResponseError(409, 'Username sudah terdaftar');
   }
 
   return prismaClient.admin.update({

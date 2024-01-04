@@ -14,9 +14,9 @@ const fileFilter = (req, file, cb) => {
   if (file.mimetype === 'image/png' || file.mimetype === 'image/jpg' || file.mimetype === 'image/jpeg') {
     cb(null, true);
   } else {
-    // cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'File Harus Bertipe png, jpg, atau jpeg'));
-    cb(null, false);
-    throw new ResponseError(404, 'File Harus Bertipe png, jpg, atau jpeg');
+    cb(new multer.MulterError('LIMIT_UNEXPECTED_FILE', 'File Harus Bertipe png, jpg, atau jpeg'));
+    // cb(null, false);
+    // throw new ResponseError(404, 'File Harus Bertipe png, jpg, atau jpeg');
   }
 };
 
