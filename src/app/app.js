@@ -19,7 +19,7 @@ app.use(cors({
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join('images')));
+app.use('/images', express.static(path.join('images')));
 app.use(auth);
 app.use(router);
 app.use(errorMiddleware);
