@@ -11,6 +11,9 @@ const getDendaService = async () => {
       createdAt: true,
       updatedAt: true,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 };
 
