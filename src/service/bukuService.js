@@ -1,7 +1,12 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createBukuValidation, getBukuValidation, updateBukuValidation } from '../validation/bukuValidation.js';
+import {
+  createBukuValidation,
+  getBukuValidation,
+  updateBukuValidation,
+} from '../validation/bukuValidation.js';
+import fs from 'fs';
 
 const getBukuService = async () => {
   return prismaClient.buku.findMany({
@@ -141,16 +146,8 @@ const updateBukuService = async (request) => {
     },
   });
 
-  const nameBukuExist = await prismaClient.buku.count({
-    where: {
-      judul_buku: buku.judul_buku,
-    },
-  });
-
   if (isBukuExist !== 1) {
     throw new ResponseError(404, 'Buku Tidak Ditemukan');
-  } else if (nameBukuExist === 1) {
-    throw new ResponseError(409, 'Buku Sudah Ada');
   }
 
   return prismaClient.buku.update({
@@ -191,12 +188,38 @@ const deleteBukuService = async (bukuId) => {
     throw new ResponseError(404, 'Buku Tidak Ditemukan');
   }
 
-  return prismaClient.buku.delete({
+  // Dapatkan informasi buku sebelum dihapus
+  const buku = await prismaClient.buku.findUnique({
     where: {
       id_buku: bukuId,
     },
   });
+
+  // Hapus buku dari database
+  await prismaClient.buku.delete({
+    where: {
+      id_buku: bukuId,
+    },
+  });
+
+  // Hapus file foto_buku jika ada
+  if (buku && buku.foto_buku) {
+    const filePath = `./images/${buku.foto_buku}`;
+
+    // Gunakan fs.unlink untuk menghapus file
+    fs.unlink(filePath, (err) => {
+      if (err) {
+        console.error('Gagal menghapus file:', err);
+      } else {
+        console.log('File berhasil dihapus');
+      }
+    });
+  }
+
+  // Kembalikan sesuatu, mungkin informasi sukses atau yang lainnya
+
 };
+
 
 export default {
   getBukuService,
