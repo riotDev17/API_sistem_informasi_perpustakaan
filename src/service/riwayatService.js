@@ -59,6 +59,9 @@ const getRiwayatService = async () => {
       createdAt: true,
       updatedAt: true,
     },
+    orderBy: {
+      createdAt: 'desc',
+    },
   });
 };
 

@@ -49,7 +49,7 @@ const deletePeminjamanBukuController = async (req, res, next) => {
     await peminjamanBukuService.deletePeminjamanBukuService(peminjamanBukuId);
     res.status(200).json({
       status: 'Success',
-      message: 'Berhasil Menghapus Data Peminjaman Buku',
+      message: 'Berhasil Melakukan Pengembalian Buku',
     });
   } catch (error) {
     next(error);
