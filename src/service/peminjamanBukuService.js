@@ -1,7 +1,10 @@
 import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createPeminjamanBukuValidation, getPeminjamanBukuValidation } from '../validation/peminjamanBukuValidation.js';
+import {
+  createPeminjamanBukuValidation,
+  getPeminjamanBukuValidation,
+} from '../validation/peminjamanBukuValidation.js';
 
 const getPeminjamanBukuService = async () => {
   return prismaClient.peminjaman.findMany({
@@ -64,6 +67,7 @@ const getPeminjamanBukuService = async () => {
       status: true,
       tanggal_pinjam: true,
       tanggal_kembali: true,
+      keterlambatan: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -71,7 +75,10 @@ const getPeminjamanBukuService = async () => {
 };
 
 const createPeminjamanBukuService = async (request) => {
-  const peminjamanBuku = await validation(createPeminjamanBukuValidation, request);
+  const peminjamanBuku = await validation(
+    createPeminjamanBukuValidation,
+    request,
+  );
   const stokBukuExist = await prismaClient.buku.findUnique({
     where: {
       id_buku: peminjamanBuku.id_buku,
@@ -99,32 +106,14 @@ const createPeminjamanBukuService = async (request) => {
   const tanggalKembali = new Date(tanggalPinjam);
   tanggalKembali.setDate(tanggalKembali.getDate() + 7);
 
-  let status = '';
-  let dendaId = '';
-
-  if (tanggalPinjam > tanggalKembali) {
-    status = 'Terlambat';
-
-    const dataDenda = await prismaClient.denda.findFirst({
-      where: {
-        id_denda: peminjamanBuku.id_denda,
-      },
-    });
-
-    if (dataDenda) {
-      dendaId = dataDenda.id_denda;
-    }
-  } else {
-    status = 'Pinjam';
-    dendaId = null;
-  }
+  let status = 'Pinjam';
 
   const dataPeminjamanBuku = {
     ...peminjamanBuku,
     tanggal_pinjam: tanggalPinjam,
     tanggal_kembali: tanggalKembali,
     status: status,
-    id_denda: dendaId,
+    keterlambatan: new Date(),
   };
 
   if (peminjamanBukuExist === 1) {
@@ -200,6 +189,7 @@ const createPeminjamanBukuService = async (request) => {
       status: true,
       tanggal_pinjam: true,
       tanggal_kembali: true,
+      keterlambatan: true,
       createdAt: true,
       updatedAt: true,
     },
@@ -304,7 +294,10 @@ const searchPeminjamanBukuService = async (request) => {
 };
 
 const deletePeminjamanBukuService = async (peminjamanBukuId) => {
-  peminjamanBukuId = await validation(getPeminjamanBukuValidation, peminjamanBukuId);
+  peminjamanBukuId = await validation(
+    getPeminjamanBukuValidation,
+    peminjamanBukuId,
+  );
   const peminjaman = await prismaClient.peminjaman.findUnique({
     where: {
       id_peminjaman: peminjamanBukuId,
@@ -351,11 +344,26 @@ const deletePeminjamanBukuService = async (peminjamanBukuId) => {
   return deletedPeminjaman;
 };
 
+const updatePeminjamanBukuService = async () => {
+  const currentDate = new Date();
+  return await prismaClient.peminjaman.updateMany({
+    where: {
+      status: 'Pinjam',
+      tanggal_kembali: {
+        lt: currentDate,
+      },
+    },
+    data: {
+      status: 'Terlambat',
+      keterlambatan: currentDate,
+    },
+  });
+};
+
 export default {
   getPeminjamanBukuService,
   createPeminjamanBukuService,
   searchPeminjamanBukuService,
+  updatePeminjamanBukuService,
   deletePeminjamanBukuService,
 };
-
-

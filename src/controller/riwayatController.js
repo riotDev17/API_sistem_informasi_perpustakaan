@@ -27,7 +27,20 @@ const searchRiwayatController = async (req, res, next) => {
   }
 };
 
+const deleteRiwayatController = async (req, res, next) => {
+  try {
+    await riwayatService.deleteRiwayatService();
+    res.status(200).json({
+      status: 'success',
+      message: 'Berhasil Menghapus Semua Data Riwayat Pengembalian Buku',
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 export default {
   getRiwayatController,
   searchRiwayatController,
+  deleteRiwayatController,
 };

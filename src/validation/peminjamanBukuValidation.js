@@ -8,8 +8,12 @@ const createPeminjamanBukuValidation = Joi.object({
   id_denda: Joi.string().max(100).optional(),
 });
 
+const updatePeminjamanBukuValidation = Joi.object({
+  tanggal_pinjam: Joi.date().required(),
+});
 
 export {
   getPeminjamanBukuValidation,
   createPeminjamanBukuValidation,
+  updatePeminjamanBukuValidation,
 };

@@ -18,7 +18,8 @@ const createPeminjamanBukuController = async (req, res, next) => {
     const { siswaId } = req.params;
     const request = req.body;
     request.id_siswa = siswaId;
-    const result = await peminjamanBukuService.createPeminjamanBukuService(request);
+    const result =
+      await peminjamanBukuService.createPeminjamanBukuService(request);
     res.status(200).json({
       status: 'Success',
       message: 'Berhasil Menambahkan Data Peminjaman Buku',
@@ -32,11 +33,24 @@ const createPeminjamanBukuController = async (req, res, next) => {
 const searchPeminjamanBukuController = async (req, res, next) => {
   try {
     const request = req.query;
-    const result = await peminjamanBukuService.searchPeminjamanBukuService(request);
+    const result =
+      await peminjamanBukuService.searchPeminjamanBukuService(request);
     res.status(200).json({
       status: 'Success',
       message: 'Berhasil Mencari Data Peminjaman Buku',
       data: result,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+const updatePeminjamanBukuController = async (req, res, next) => {
+  try {
+    await peminjamanBukuService.updatePeminjamanBukuService();
+    res.status(200).json({
+      status: 'Success',
+      message: 'Berhasil Mengupdate Semua Data Peminjaman Buku',
     });
   } catch (error) {
     next(error);
@@ -54,11 +68,12 @@ const deletePeminjamanBukuController = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-}
+};
 
 export default {
   getPeminjamanBukuController,
   createPeminjamanBukuController,
   searchPeminjamanBukuController,
+  updatePeminjamanBukuController,
   deletePeminjamanBukuController,
 };

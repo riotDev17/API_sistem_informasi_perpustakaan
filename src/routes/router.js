@@ -38,9 +38,18 @@ router.delete('/api/kelas/:kelasId', kelasController.deleteKelasController);
 router.get('/api/rak-buku', rakBukuController.getRakBukuController);
 router.get('/api/rak-buku/search', rakBukuController.searchRakBukuController);
 router.post('/api/rak-buku', rakBukuController.createRakBukuController);
-router.get('/api/rak-buku/:rakBukuId', rakBukuController.getRakBukuByIdController);
-router.put('/api/rak-buku/:rakBukuId', rakBukuController.updateRakBukuController);
-router.delete('/api/rak-buku/:rakBukuId', rakBukuController.deleteRakBukuController);
+router.get(
+  '/api/rak-buku/:rakBukuId',
+  rakBukuController.getRakBukuByIdController,
+);
+router.put(
+  '/api/rak-buku/:rakBukuId',
+  rakBukuController.updateRakBukuController,
+);
+router.delete(
+  '/api/rak-buku/:rakBukuId',
+  rakBukuController.deleteRakBukuController,
+);
 
 // BUKU
 router.get('/api/buku', bukuController.getBukuController);
@@ -59,10 +68,26 @@ router.put('/api/siswa/:siswaId', siswaController.updateSiswaController);
 router.delete('/api/siswa/:siswaId', siswaController.deleteSiswaController);
 
 // PEMINJAMAN BUKU
-router.get('/api/peminjaman-buku', peminjamanBukuController.getPeminjamanBukuController);
-router.post('/api/peminjaman-buku/:siswaId', peminjamanBukuController.createPeminjamanBukuController);
-router.get('/api/peminjaman-buku/search', peminjamanBukuController.searchPeminjamanBukuController);
-router.delete('/api/peminjaman-buku/:peminjamanBukuId', peminjamanBukuController.deletePeminjamanBukuController);
+router.get(
+  '/api/peminjaman-buku',
+  peminjamanBukuController.getPeminjamanBukuController,
+);
+router.post(
+  '/api/peminjaman-buku/:siswaId',
+  peminjamanBukuController.createPeminjamanBukuController,
+);
+router.get(
+  '/api/peminjaman-buku/search',
+  peminjamanBukuController.searchPeminjamanBukuController,
+);
+router.put(
+  '/api/peminjaman-buku',
+  peminjamanBukuController.updatePeminjamanBukuController,
+);
+router.delete(
+  '/api/peminjaman-buku/:peminjamanBukuId',
+  peminjamanBukuController.deletePeminjamanBukuController,
+);
 
 // DENDA
 router.get('/api/denda', dendaController.getDendaController);
@@ -75,5 +100,6 @@ router.delete('/api/denda/:dendaId', dendaController.deleteDendaController);
 // RIWAYAT
 router.get('/api/riwayat', riwayatController.getRiwayatController);
 router.get('/api/riwayat/search', riwayatController.searchRiwayatController);
+router.delete('/api/riwayat', riwayatController.deleteRiwayatController);
 
 export { router };

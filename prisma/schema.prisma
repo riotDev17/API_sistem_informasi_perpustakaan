@@ -114,6 +114,7 @@ model Peminjaman {
   status          String   @db.VarChar(30)
   tanggal_pinjam  DateTime @default(now()) @db.Date
   tanggal_kembali DateTime @db.Date
+  keterlambatan   DateTime? @db.Date
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
