@@ -357,9 +357,9 @@ const updatePeminjamanBukuService = async () => {
     },
   });
 
-  const updateData = peminjamanList.map(async (peminjaman) => {
+  return peminjamanList.map(async (peminjaman) => {
     // Menentukan nilai keterlambatan berdasarkan kondisi
-    const keterlambatan =
+    let keterlambatan =
       currentDate >= peminjaman.tanggal_kembali
         ? currentDate
         : peminjaman.keterlambatan;
@@ -378,29 +378,25 @@ const updatePeminjamanBukuService = async () => {
       keterlambatan >= peminjaman.tanggal_kembali ? 'Terlambat' : 'Pinjam';
 
     // Jika status terlambat, maka tambahkan data denda
-    const idDenda = null;
+    let idDenda = null;
     if (status === 'Terlambat') {
       const denda = await prismaClient.denda.create({
         data: {
-          nominal: denda.nominal,
+          nominal: denda?.nominal,
         },
       });
 
-      idDenda = denda.id_denda;
+      idDenda = denda?.id_denda;
     }
 
     return prismaClient.peminjaman.updateMany({
-      where: {
-        id: peminjaman.id,
-      },
       data: {
         status: status,
         keterlambatan: keterlambatan,
+        id_denda: idDenda,
       },
     });
   });
-
-  return updateData;
 };
 
 export default {
