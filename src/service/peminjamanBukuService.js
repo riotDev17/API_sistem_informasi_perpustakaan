@@ -2,8 +2,8 @@ import { validation } from '../validation/validation.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
 import {
-  createPeminjamanBukuValidation,
   getPeminjamanBukuValidation,
+  createPeminjamanBukuValidation,
 } from '../validation/peminjamanBukuValidation.js';
 
 const getPeminjamanBukuService = async () => {
@@ -293,6 +293,60 @@ const searchPeminjamanBukuService = async (request) => {
   return peminjaman;
 };
 
+const updatePeminjamanBukuService = async (peminjamanBukuId) => {
+  peminjamanBukuId = await validation(
+    getPeminjamanBukuValidation,
+    peminjamanBukuId,
+  );
+  const peminjaman = await prismaClient.peminjaman.findUnique({
+    where: {
+      id_peminjaman: peminjamanBukuId,
+    },
+    include: {
+      denda: {
+        select: {
+          id_denda: true,
+          nominal: true,
+        },
+      },
+    },
+  });
+
+  if (!peminjaman) {
+    throw new ResponseError(404, 'Peminjaman Tidak Ditemukan');
+  }
+
+  const currentDate = new Date().toISOString();
+
+  if (currentDate > peminjaman.tanggal_kembali) {
+    const delayInDays =
+      Math.floor(new Date(currentDate) - new Date(peminjaman.tanggal_kembali)) /
+      (1000 * 3600 * 24);
+
+    const idDenda = peminjaman?.denda.id_denda;
+
+    return prismaClient.peminjaman.update({
+      where: {
+        id_peminjaman: peminjaman.id_peminjaman,
+      },
+      data: {
+        keterlambatan: delayInDays,
+        status: 'Terlambat',
+        id_denda: idDenda,
+      },
+    });
+  } else {
+    return prismaClient.peminjaman.update({
+      where: {
+        id_peminjaman: peminjaman.id_peminjaman,
+      },
+      data: {
+        keterlambatan: currentDate,
+      },
+    });
+  }
+};
+
 const deletePeminjamanBukuService = async (peminjamanBukuId) => {
   peminjamanBukuId = await validation(
     getPeminjamanBukuValidation,
@@ -342,61 +396,6 @@ const deletePeminjamanBukuService = async (peminjamanBukuId) => {
   }
 
   return deletedPeminjaman;
-};
-
-const updatePeminjamanBukuService = async () => {
-  const currentDate = new Date().toISOString();
-
-  // Mencari data peminjaman yang statusnya masih pinjam dan tanggal kembali lebih kecil dari tanggal saat ini
-  const peminjamanList = await prismaClient.peminjaman.findMany({
-    where: {
-      status: 'Pinjam',
-      tanggal_kembali: {
-        lt: currentDate,
-      },
-    },
-  });
-
-  return peminjamanList.map(async (peminjaman) => {
-    // Menentukan nilai keterlambatan berdasarkan kondisi
-    let keterlambatan =
-      currentDate >= peminjaman.tanggal_kembali
-        ? currentDate
-        : peminjaman.keterlambatan;
-
-    // Menghitung selisih waktu antara tanggal kembali dan tanggal saat ini
-    const selisihWaktu =
-      new Date(currentDate) - new Date(peminjaman.tanggal_kembali);
-
-    // Jika lewat dari 1 hari, maka update keterlambatan menjadi tanggal saat ini
-    if (selisihWaktu > 24 * 60 * 60 * 1000) {
-      keterlambatan = currentDate;
-    }
-
-    // Menentukan status berdasarkan kondisi keterlambatan
-    const status =
-      keterlambatan >= peminjaman.tanggal_kembali ? 'Terlambat' : 'Pinjam';
-
-    // Jika status terlambat, maka tambahkan data denda
-    let idDenda = null;
-    if (status === 'Terlambat') {
-      const denda = await prismaClient.denda.create({
-        data: {
-          nominal: denda?.nominal,
-        },
-      });
-
-      idDenda = denda?.id_denda;
-    }
-
-    return prismaClient.peminjaman.updateMany({
-      data: {
-        status: status,
-        keterlambatan: keterlambatan,
-        id_denda: idDenda,
-      },
-    });
-  });
 };
 
 export default {

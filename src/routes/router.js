@@ -81,7 +81,7 @@ router.get(
   peminjamanBukuController.searchPeminjamanBukuController,
 );
 router.put(
-  '/api/peminjaman-buku',
+  '/api/peminjaman-buku/:peminjamanBukuId',
   peminjamanBukuController.updatePeminjamanBukuController,
 );
 router.delete(
