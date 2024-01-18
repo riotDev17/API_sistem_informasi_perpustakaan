@@ -58,18 +58,15 @@ const getPeminjamanBukuService = async () => {
           updatedAt: true,
         },
       },
-      denda: {
-        select: {
-          id_denda: true,
-          nominal: true,
-        },
-      },
       status: true,
       tanggal_pinjam: true,
       tanggal_kembali: true,
       keterlambatan: true,
       createdAt: true,
       updatedAt: true,
+    },
+    orderBy: {
+      createdAt: 'desc',
     },
   });
 };
@@ -101,18 +98,17 @@ const createPeminjamanBukuService = async (request) => {
     },
   });
 
-  // DENDA , TANGGAL PINJAM , TANGGAL KEMBALI
+  // TANGGAL PINJAM , TANGGAL KEMBALI
   const tanggalPinjam = new Date();
   const tanggalKembali = new Date(tanggalPinjam);
-  tanggalKembali.setDate(tanggalKembali.getDate() + 7);
-
-  let status = 'Pinjam';
+  tanggalKembali.setDate(tanggalKembali.getDate() + 1);
 
   const dataPeminjamanBuku = {
     ...peminjamanBuku,
     tanggal_pinjam: tanggalPinjam,
     tanggal_kembali: tanggalKembali,
-    status: status,
+    status: 'Pinjam',
+    denda: 0,
     keterlambatan: new Date(),
   };
 
@@ -180,12 +176,7 @@ const createPeminjamanBukuService = async (request) => {
           updatedAt: true,
         },
       },
-      denda: {
-        select: {
-          id_denda: true,
-          nominal: true,
-        },
-      },
+      denda: true,
       status: true,
       tanggal_pinjam: true,
       tanggal_kembali: true,
@@ -272,12 +263,6 @@ const searchPeminjamanBukuService = async (request) => {
           updatedAt: true,
         },
       },
-      denda: {
-        select: {
-          id_denda: true,
-          nominal: true,
-        },
-      },
       status: true,
       tanggal_pinjam: true,
       tanggal_kembali: true,
@@ -298,17 +283,10 @@ const updatePeminjamanBukuService = async (peminjamanBukuId) => {
     getPeminjamanBukuValidation,
     peminjamanBukuId,
   );
-  const peminjaman = await prismaClient.peminjaman.findUnique({
+
+  const peminjaman = await prismaClient.peminjaman.findFirst({
     where: {
       id_peminjaman: peminjamanBukuId,
-    },
-    include: {
-      denda: {
-        select: {
-          id_denda: true,
-          nominal: true,
-        },
-      },
     },
   });
 
@@ -317,31 +295,21 @@ const updatePeminjamanBukuService = async (peminjamanBukuId) => {
   }
 
   const currentDate = new Date().toISOString();
+  const tanggalKembali = new Date(peminjaman.tanggal_kembali).toISOString();
 
-  if (currentDate > peminjaman.tanggal_kembali) {
-    const delayInDays =
-      Math.floor(new Date(currentDate) - new Date(peminjaman.tanggal_kembali)) /
-      (1000 * 3600 * 24);
-
-    const idDenda = peminjaman?.denda.id_denda;
+  if (currentDate > tanggalKembali) {
+    const keterlambatan = Math.floor(
+      (currentDate - tanggalKembali) / (1000 * 3600 * 24),
+    );
 
     return prismaClient.peminjaman.update({
       where: {
         id_peminjaman: peminjaman.id_peminjaman,
       },
       data: {
-        keterlambatan: delayInDays,
         status: 'Terlambat',
-        id_denda: idDenda,
-      },
-    });
-  } else {
-    return prismaClient.peminjaman.update({
-      where: {
-        id_peminjaman: peminjaman.id_peminjaman,
-      },
-      data: {
-        keterlambatan: currentDate,
+        keterlambatan: keterlambatan,
+        denda: keterlambatan * 3000,
       },
     });
   }
