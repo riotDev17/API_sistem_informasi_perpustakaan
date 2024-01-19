@@ -47,10 +47,11 @@ const searchPeminjamanBukuController = async (req, res, next) => {
 
 const updatePeminjamanBukuController = async (req, res, next) => {
   try {
-    await peminjamanBukuService.updatePeminjamanBukuService();
+    const { peminjamanBukuId } = req.params;
+    await peminjamanBukuService.updatePeminjamanBukuService(peminjamanBukuId);
     res.status(200).json({
       status: 'Success',
-      message: 'Berhasil Mengupdate Semua Data Peminjaman Buku',
+      message: 'Berhasil Mengupdate Data Peminjaman Buku',
     });
   } catch (error) {
     next(error);

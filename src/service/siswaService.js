@@ -2,7 +2,11 @@ import { validation } from '../validation/validation.js';
 import { randomNumber } from '../helpers/randomNumber.js';
 import { prismaClient } from '../app/database.js';
 import { ResponseError } from '../error/responseError.js';
-import { createSiswaValidation, getSiswaValidation, updateSiswaValidation } from '../validation/siswaValidation.js';
+import {
+  createSiswaValidation,
+  getSiswaValidation,
+  updateSiswaValidation,
+} from '../validation/siswaValidation.js';
 
 const getSiswaService = async () => {
   return prismaClient.siswa.findMany({
@@ -196,16 +200,8 @@ const updateSiswaService = async (request) => {
     },
   });
 
-  const nameSiswaExist = await prismaClient.siswa.count({
-    where: {
-      nama_siswa: siswa.nama_siswa,
-    },
-  });
-
   if (siswaExist !== 1) {
     throw new ResponseError(404, 'Siswa tidak ditemukan');
-  } else if (nameSiswaExist === 1) {
-    throw new ResponseError(409, 'Siswa sudah ada');
   }
 
   return prismaClient.siswa.update({

@@ -169,7 +169,7 @@ const deleteRiwayatService = async () => {
   const riwayat = await prismaClient.riwayat.deleteMany();
 
   if (riwayat.length === 0) {
-    throw new ResponseError(404, 'Daata Riwayat Kosong');
+    throw new ResponseError(404, 'Data Riwayat Kosong');
   }
 };
 
