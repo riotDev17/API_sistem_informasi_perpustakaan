@@ -1,14 +1,13 @@
 import express from 'express';
+import bukuController from '../controller/bukuController.js';
 import adminController from '../controller/adminController.js';
 import agamaController from '../controller/agamaController.js';
 import kelasController from '../controller/kelasController.js';
-import rakBukuController from '../controller/rakBukuController.js';
-import bukuController from '../controller/bukuController.js';
 import siswaController from '../controller/siswaController.js';
-import peminjamanBukuController from '../controller/peminjamanBukuController.js';
-import dendaController from '../controller/dendaController.js';
-import { authMiddleware } from '../middleware/authMiddleware.js';
 import riwayatController from '../controller/riwayatController.js';
+import rakBukuController from '../controller/rakBukuController.js';
+import peminjamanBukuController from '../controller/peminjamanBukuController.js';
+import { authMiddleware } from '../middleware/authMiddleware.js';
 
 const router = new express.Router();
 router.use(authMiddleware);
@@ -88,14 +87,6 @@ router.delete(
   '/api/peminjaman-buku/:peminjamanBukuId',
   peminjamanBukuController.deletePeminjamanBukuController,
 );
-
-// DENDA
-router.get('/api/denda', dendaController.getDendaController);
-router.get('/api/denda/search', dendaController.searchDendaController);
-router.post('/api/denda', dendaController.createDendaController);
-router.get('/api/denda/:dendaId', dendaController.getDendaByIdController);
-router.put('/api/denda/:dendaId', dendaController.updateDendaController);
-router.delete('/api/denda/:dendaId', dendaController.deleteDendaController);
 
 // RIWAYAT
 router.get('/api/riwayat', riwayatController.getRiwayatController);

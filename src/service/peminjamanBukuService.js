@@ -102,7 +102,7 @@ const createPeminjamanBukuService = async (request) => {
   // TANGGAL PINJAM , TANGGAL KEMBALI
   const tanggalPinjam = new Date();
   const tanggalKembali = new Date(tanggalPinjam);
-  tanggalKembali.setDate(tanggalKembali.getDate() + 0);
+  tanggalKembali.setDate(tanggalKembali.getDate() + 7);
 
   const dataPeminjamanBuku = {
     ...peminjamanBuku,
@@ -295,37 +295,24 @@ const updatePeminjamanBukuService = async (peminjamanBukuId) => {
     throw new ResponseError(404, 'Peminjaman Tidak Ditemukan');
   }
 
-  const currentDate = new Date().toISOString();
+  const tanggalKeterlambatan = peminjaman.keterlambatan;
+  const tanggalKembali = peminjaman.tanggal_kembali;
+  const dendaPerHari = 3000;
+  const totalDenda =
+    Math.ceil((tanggalKeterlambatan - tanggalKembali) / (1000 * 60 * 60 * 24)) *
+    dendaPerHari;
 
-  if (currentDate > peminjaman.tanggal_kembali) {
-    const keterlambatan =
-      Math.floor(new Date(currentDate) - new Date(peminjaman.tanggal_kembali)) /
-      (1000 * 3600 * 24);
+  let status = 'Pinjam';
+  let denda = 0;
 
-    const dendaPerHari = 3000;
-    if (keterlambatan > 0) {
-      const totalDenda = keterlambatan * dendaPerHari;
-
-      return prismaClient.peminjaman.update({
-        where: {
-          id_peminjaman: peminjaman.id_peminjaman,
-        },
-        data: {
-          status: 'Terlambat',
-          denda: totalDenda,
-          keterlambatan: keterlambatan,
-        },
-      });
-    }
-  } else {
+  if (tanggalKeterlambatan >= tanggalKembali) {
     return prismaClient.peminjaman.update({
       where: {
-        id_peminjaman: peminjaman.id_peminjaman,
+        id_peminjaman: peminjamanBukuId,
       },
       data: {
-        status: 'Pinjam',
-        denda: 0,
-        keterlambatan: currentDate,
+        status: 'Terlambat',
+        denda: totalDenda,
       },
     });
   }

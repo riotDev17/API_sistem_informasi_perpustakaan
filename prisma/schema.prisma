@@ -93,27 +93,17 @@ model Buku {
   @@map("buku")
 }
 
-// model Denda {
-//   id_denda   String       @id @default(uuid())
-//   nominal    Int          @db.Integer
-//   createdAt  DateTime     @default(now())
-//   updatedAt  DateTime     @updatedAt
-//   Peminjaman Peminjaman[]
-
-//   @@map("denda")
-// }
-
 model Peminjaman {
   id_peminjaman   String   @id @default(uuid())
   id_siswa        String
   siswa           Siswa    @relation(fields: [id_siswa], references: [id_siswa])
   id_buku         String
   buku            Buku     @relation(fields: [id_buku], references: [id_buku])
-  denda Int @db.Integer
+  denda           Int      @db.Integer
   status          String   @db.VarChar(30)
   tanggal_pinjam  DateTime @default(now()) @db.Date
   tanggal_kembali DateTime @db.Date
-  keterlambatan   DateTime? @db.Date
+  keterlambatan   DateTime @updatedAt
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
 
