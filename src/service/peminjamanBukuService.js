@@ -298,20 +298,14 @@ const updatePeminjamanBukuService = async (peminjamanBukuId) => {
   const tanggalKeterlambatan = peminjaman.keterlambatan;
   const tanggalKembali = peminjaman.tanggal_kembali;
   const dendaPerHari = 3000;
-  const totalDenda =
-    Math.ceil((tanggalKeterlambatan - tanggalKembali) / (1000 * 60 * 60 * 24)) *
-    dendaPerHari;
 
-  const updateTanggalKeterlambatan = await prismaClient.peminjaman.update({
-    where: {
-      id_peminjaman: peminjamanBukuId,
-    },
-    data: {
-      keterlambatan: new Date(),
-    },
-  });
+  // Memeriksa apakah sudah terlambat
+  if (tanggalKeterlambatan > tanggalKembali) {
+    const totalDenda =
+      Math.ceil(
+        (tanggalKeterlambatan - tanggalKembali) / (1000 * 60 * 60 * 24),
+      ) * dendaPerHari;
 
-  if (updateTanggalKeterlambatan > tanggalKembali) {
     return prismaClient.peminjaman.update({
       where: {
         id_peminjaman: peminjamanBukuId,
@@ -321,19 +315,7 @@ const updatePeminjamanBukuService = async (peminjamanBukuId) => {
         denda: totalDenda,
       },
     });
-  } else if (updateTanggalKeterlambatan < tanggalKembali) {
-    return prismaClient.peminjaman.update({
-      where: {
-        id_peminjaman: peminjamanBukuId,
-      },
-      data: {
-        status: 'Pinjam',
-        denda: 0,
-      },
-    });
   }
-
-  return updateTanggalKeterlambatan;
 };
 
 const deletePeminjamanBukuService = async (peminjamanBukuId) => {
