@@ -5,8 +5,9 @@ const options = {
   definition: {
     openapi: '3.0.0',
     info: {
-      title: 'API',
-      description: 'Ini adalah dokumentasi API untuk projek Sistem Informasi Perpustakaan berbasis Web',
+      title: 'API Sistem Informasi Perpustakaan | IntelliBook',
+      description:
+        'IntelliBook adalah sistem informasi perpustakaan untuk Sekolah SMA yang dibuat menggunakan React JS dan Express JS. Sistem ini dirancang untuk memudahkan siswa untuk meminjam buku di perpustakaan. \n\nIntelliBook memiliki beberapa fitur antara lain : \n\n- Login Admin \n\n- Manajemen master data seperti Agama , Kelas , Rak Buku \n\n- Manajemen Buku \n\n- Manajemen Siswa \n\n- Cetak Kartu Anggota Siswa \n\n- Peminjaman Buku \n\n- Laporan Pengembalian Buku \n\n Tech Stack yang saya gunakan di dalam project Backend Sistem Informasi Perpustakaan ini antara lain : \n\n- Node JS \n\n- Express JS \n\n- JavaScript \n\n- Prisma ORM \n\n- PostgreSQL',
       version: '1.0.0',
       contact: {
         name: 'Thomas Alberto',
